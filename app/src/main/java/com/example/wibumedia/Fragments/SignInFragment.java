@@ -27,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignInFragment extends Fragment {
-    private TextView tv_create, tv_forgotPass, tv_skip;
+    private TextView tv_create;
     private EditText et_username, et_password;
     private Button btn_signin;
 
@@ -55,8 +55,6 @@ public class SignInFragment extends Fragment {
 
     private void setControl(View view) {
         tv_create = view.findViewById(R.id.tv_create);
-        tv_forgotPass = view.findViewById(R.id.tv_forgotPass);
-        tv_skip = view.findViewById(R.id.tv_skip);
         et_username = view.findViewById(R.id.et_username);
         et_password = view.findViewById(R.id.et_password);
         btn_signin = view.findViewById(R.id.btn_signin);
@@ -72,19 +70,7 @@ public class SignInFragment extends Fragment {
                 ((FragmentReplaceActivity) getActivity()).setFragment(new SignUpFragment());
             }
         });
-        tv_forgotPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                ((FragmentReplaceActivity) getActivity()).setFragment(new ForgotPasswordFragment());
-            }
-        });
-        tv_skip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
-                getActivity().finish();
-            }
-        });
+
         btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

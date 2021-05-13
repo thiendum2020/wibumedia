@@ -79,20 +79,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-        holder.img_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (!clicked) {
-                    holder.img_save.setImageResource(R.drawable.saved);
-                    clicked = true;
-                } else {
-                    holder.img_save.setImageResource(R.drawable.saved);
-                    clicked = false;
-                }
-            }
-        });
-
         holder.tv_displayName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +87,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 Bundle bundle = new Bundle();
 
                 bundle.putString("UserID", String.valueOf(model.getUser().getId()));
+                someFragment.setArguments(bundle);
+
                 FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameLayout, someFragment ); // give your fragment container id in first parameter
                 transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
@@ -118,7 +106,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView img_profile;
         RoundedImageView img_post;
-        ImageButton img_save;
         TextView tv_displayName, tv_address, tv_caption, tv_like, tv_comment;
 
         public ViewHolder(@NonNull View itemView) {
@@ -127,7 +114,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             img_profile = itemView.findViewById(R.id.img_profile);
             img_post = itemView.findViewById(R.id.img_post);
-            img_save = itemView.findViewById(R.id.img_save);
             tv_displayName = itemView.findViewById(R.id.tv_displayName);
             tv_address = itemView.findViewById(R.id.tv_address);
             tv_caption = itemView.findViewById(R.id.tv_caption);
