@@ -1,5 +1,6 @@
 package com.example.wibumedia.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,26 +8,36 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.wibumedia.Adapters.PostAdapter;
-import com.example.wibumedia.Models.PostModel;
+import com.example.wibumedia.Models.JSONResponsePost;
+import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
+import com.example.wibumedia.Retrofit.ApiInterface;
+import com.example.wibumedia.Retrofit.Common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
+    final String key = "VSBG";
     RecyclerView layout_post;
-    ArrayList<PostModel> postList;
-    PostAdapter postAdapter;
+    ArrayList<Post> postList;
+    PostAdapter postAdapter=null;
+    ApiInterface service;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -36,10 +47,12 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setControl(view);
-        postList = new ArrayList<>();
-        postAdapter = new PostAdapter(postList, HomeFragment.this);
-        layout_post.setAdapter(postAdapter);
+
+        service = Common.getGsonService();
+
         loadData();
+
+
     }
 
     @Override
@@ -51,12 +64,41 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadData() {
-        postList.add(new PostModel(R.drawable.img_profile_1,R.drawable.post1,"thien.wibu","Viet Nam", "Nobita Sasuke SonGoKu Vegeta Sakura.","100","50"));
-        postList.add(new PostModel(R.drawable.img_profile_2,R.drawable.post2,"thang.wibu","Nhat Ban", "Nobita Sasuke SonGoKu Vegeta Sakura.","50","100"));
-        postList.add(new PostModel(R.drawable.img_profile_3,R.drawable.post3,"thuan.wibu","Han Quoc", "Nobita Sasuke SonGoKu Vegeta Sakura.","200","20"));
-        postList.add(new PostModel(R.drawable.img_profile_4,R.drawable.post4,"phu.wibu","Trung Quoc", "Nobita Sasuke SonGoKu Vegeta Sakura.","20","1"));
-        postList.add(new PostModel(R.drawable.img_profile_5,R.drawable.post5,"tan.wibu","Trieu Tien", "Nobita Sasuke SonGoKu Vegeta Sakura.","10","10"));
-        postAdapter.notifyDataSetChanged();
+        if (Common.isConnectedToInternet(getActivity().getBaseContext())) {
+            ProgressDialog mDialog = new ProgressDialog(getActivity().getBaseContext().getApplicationContext());
+            service.getPost(key).enqueue(new Callback<JSONResponsePost>() {
+                @Override
+                public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
+                    JSONResponsePost jsonResponsePost = response.body();
+                    if (jsonResponsePost.getData() == null) {
+                        Toast.makeText(getActivity(), "This Home does not has Post", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    postList = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
+                    Log.e("aaaa","brvdfvdv"+jsonResponsePost.getStatus());
+
+                    postAdapter = new PostAdapter(postList, HomeFragment.this);
+                    layout_post.setAdapter(postAdapter);
+
+                    postAdapter.notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onFailure(Call<JSONResponsePost> call, Throwable t) {
+                    Toast.makeText(getContext(), "Erro : "+ t, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            //loadJSONPostID();
+
+//            mListView.scheduleLayoutAnimation();
+
+        } else {
+            Toast.makeText(getActivity(), "Please check your internet!!", Toast.LENGTH_SHORT).show();
+//            return;
+        }
+
     }
 
     private void setControl(View view) {

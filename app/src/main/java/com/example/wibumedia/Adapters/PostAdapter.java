@@ -1,6 +1,7 @@
 package com.example.wibumedia.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wibumedia.Fragments.HomeFragment;
 import com.example.wibumedia.Fragments.OtherProfileFragment;
-import com.example.wibumedia.Models.PostModel;
+import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -26,13 +28,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private LayoutInflater mInflater;
 
-    private ArrayList<PostModel> list;
+    private ArrayList<Post> list;
     Context context;
     HomeFragment homeFragment;
     boolean clicked = false;
     int likeCount;
 
-    public PostAdapter(ArrayList<PostModel> list, HomeFragment homeFragment) {
+    public PostAdapter(ArrayList<Post> list, HomeFragment homeFragment) {
         this.list = list;
         this.homeFragment = homeFragment;
     }
@@ -47,15 +49,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PostModel model = list.get(position);
+        Post model = list.get(position);
 
-        holder.img_profile.setImageResource(model.getImg_profile());
-        holder.img_post.setImageResource(model.getImg_post());
-        holder.tv_displayName.setText(model.getTv_displayName());
-        holder.tv_address.setText(model.getTv_address());
-        holder.tv_caption.setText(model.getTv_caption());
-        holder.tv_like.setText(model.getTv_like());
-        holder.tv_comment.setText(model.getTv_comment());
+
+        //holder.img_post.setImageResource(model.getImage());
+        Picasso.get().load(list.get(position).getImage())
+                .into(holder.img_post);
+        holder.tv_displayName.setText(model.getUser().getUsername());
+        //holder.tv_address.setText(model.getTv_address());
+        holder.tv_caption.setText(model.getContent());
+        //holder.tv_like.setText(model.getTv_like());
+        //holder.tv_comment.setText(model.getTv_comment());
 
         holder.img_post.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -94,6 +98,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onClick(View v) {
 //                ((FragmentReplaceActivity) homeFragment.getActivity()).setFragment(new OtherProfileFragment());
                 Fragment someFragment = new OtherProfileFragment();
+                Bundle bundle = new Bundle();
+
+                bundle.putString("UserID", String.valueOf(model.getUser().getId()));
                 FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameLayout, someFragment ); // give your fragment container id in first parameter
                 transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
