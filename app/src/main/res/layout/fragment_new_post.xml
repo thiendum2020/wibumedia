@@ -23,8 +23,8 @@
 
             <ImageButton
                 android:id="@+id/btn_back"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -39,7 +39,7 @@
                 android:gravity="center"
                 android:text="New Post"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -54,7 +54,7 @@
                 android:gravity="center"
                 android:text="Done"
                 android:textColor="#047AF1"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
