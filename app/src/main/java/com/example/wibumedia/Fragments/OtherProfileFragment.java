@@ -45,43 +45,42 @@ public class OtherProfileFragment extends Fragment {
 
 
 
-        Fragment fragment = new Fragment();
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            String userId = bundle.getString("UserID");
-
-            loadProfile(userId);
-        }
+//        Fragment fragment = new Fragment();
+//        Bundle bundle = this.getArguments();
+//        if (bundle != null) {
+//            String userId = bundle.getString("UserID");
+//
+//            loadProfile(userId);
+//        }
     }
 
     private void loadProfile(String userId) {
 
-        service = Common.getGsonService();
-            Log.e("ccc","sadad"+userId);
-            //userId  = getIntent().getExtras().getString("UserID");
-            service.getPostUserID(key,userId).enqueue(new Callback<JSONResponsePost>() {
-                @Override
-                public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
-                    JSONResponsePost jsonResponsePost = response.body();
-                    if (jsonResponsePost.getData() == null) {
-                        Toast.makeText(getContext(), "This Profile does not has Post", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    posts = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
-                    Log.e("aaaa","brvdfvdv"+jsonResponsePost.getStatus());
-                    //viết profile adapter để set giao diện cho 1 tấm hình hiển thị ở layout center profile...trong profile adapter thì row = inflater.inflate(R.layout.profile_item_image, parent, false);
-                    viewPagerAdapter = new ProfileAdapter(getBaseContext(), R.layout.layout_center_profile, posts);
-                    gridViewProfile.setAdapter(viewPagerAdapter);
-                    viewPagerAdapter.notifyDataSetChanged();
-
-
-                }
-
-                @Override
-                public void onFailure(Call<JSONResponsePost> call, Throwable t) {
-                    Toast.makeText(getBaseContext(), "Erro : "+ t, Toast.LENGTH_SHORT).show();
-                }
-            });
+//        service = Common.getGsonService();
+//            Log.e("ccc","sadad"+userId);
+//            //userId  = getIntent().getExtras().getString("UserID");
+//            service.getPostUserID(key,userId).enqueue(new Callback<JSONResponsePost>() {
+//                @Override
+//                public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
+//                    JSONResponsePost jsonResponsePost = response.body();
+//                    if (jsonResponsePost.getData() == null) {
+//                        Toast.makeText(getContext(), "This Profile does not has Post", Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//                    posts = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
+//                    Log.e("aaaa","brvdfvdv"+jsonResponsePost.getStatus());
+//                    //viết profile adapter để set giao diện cho 1 tấm hình hiển thị ở layout center profile...trong profile adapter thì row = inflater.inflate(R.layout.profile_item_image, parent, false);
+//                    viewPagerAdapter = new ProfileAdapter(getBaseContext(), R.layout.layout_center_profile, posts);
+//                    gridViewProfile.setAdapter(viewPagerAdapter);
+//                    viewPagerAdapter.notifyDataSetChanged();
+//
+//                }
+//
+//                @Override
+//                public void onFailure(Call<JSONResponsePost> call, Throwable t) {
+//                    Toast.makeText(getContext(), "Erro : "+ t, Toast.LENGTH_SHORT).show();
+//                }
+//            });
 
     }
 }
