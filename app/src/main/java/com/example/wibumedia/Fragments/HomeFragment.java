@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setControl(view);
         postList = new ArrayList<>();
-        postAdapter = new PostAdapter(postList, getContext());
+        postAdapter = new PostAdapter(postList, HomeFragment.this);
         layout_post.setAdapter(postAdapter);
         loadData();
     }

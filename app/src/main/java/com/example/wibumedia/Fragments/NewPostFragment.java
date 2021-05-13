@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ public class NewPostFragment extends Fragment {
     private TextInputEditText et_caption;
     private CircleImageView img_profile;
     private ImageButton btn_back;
-
+    NewPostFragment newPostFragment;
     public NewPostFragment() {
         // Required empty public constructor
     }
@@ -69,15 +70,21 @@ public class NewPostFragment extends Fragment {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
-                getActivity().finish();
+                Fragment someFragment = new HomeFragment();
+                FragmentTransaction transaction = newPostFragment.getFragmentManager().beginTransaction();
+                transaction.replace(R.id.newPostFragment, someFragment ); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
             }
         });
         tv_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
-                getActivity().finish();
+                Fragment someFragment = new HomeFragment();
+                FragmentTransaction transaction = newPostFragment.getFragmentManager().beginTransaction();
+                transaction.replace(R.id.newPostFragment, someFragment ); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
             }
         });
     }

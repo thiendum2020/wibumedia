@@ -5,19 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wibumedia.Fragments.HomeFragment;
+import com.example.wibumedia.Fragments.OtherProfileFragment;
 import com.example.wibumedia.Models.PostModel;
 import com.example.wibumedia.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -27,18 +28,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private ArrayList<PostModel> list;
     Context context;
+    HomeFragment homeFragment;
     boolean clicked = false;
     int likeCount;
 
-    public PostAdapter(ArrayList<PostModel> list, Context context) {
+    public PostAdapter(ArrayList<PostModel> list, HomeFragment homeFragment) {
         this.list = list;
-        this.context = context;
+        this.homeFragment = homeFragment;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.post_item, parent, false);
+        View view = LayoutInflater.from(homeFragment.getContext()).inflate(R.layout.post_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -86,6 +88,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             }
         });
+
+        holder.tv_displayName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ((FragmentReplaceActivity) homeFragment.getActivity()).setFragment(new OtherProfileFragment());
+                Fragment someFragment = new OtherProfileFragment();
+                FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, someFragment ); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
+            }
+        });
+
     }
 
     @Override
