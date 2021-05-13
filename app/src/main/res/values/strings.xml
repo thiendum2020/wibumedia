@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WibuMedia</string>
+    <string name="des_signin">Please enter your information below in order to login to your account.</string>
+    <string name="tv_pass"><u>Skip</u></string>
+    <string name="btn_signin">Sign In</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+</resources>

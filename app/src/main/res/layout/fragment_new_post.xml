@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Fragments.NewPostFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bg_new_post"
+        android:elevation="0dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/back"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center"
+                android:text="New Post"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_done"
+                android:layout_width="wrap_content"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center"
+                android:text="Done"
+                android:textColor="#047AF1"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/layout_caption"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="12dp"
+                    android:src="@drawable/img_profile_1"
+                    app:civ_border_color="@color/black"
+                    app:civ_border_width="1dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/img_circle"
+                    app:layout_constraintBottom_toBottomOf="@id/img_profile"
+                    app:layout_constraintEnd_toEndOf="@id/img_profile"
+                    app:layout_constraintStart_toStartOf="@id/img_profile"
+                    app:layout_constraintTop_toTopOf="@id/img_profile" />
+
+                <TextView
+                    android:id="@+id/tv_displayName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="thien.wibu"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_profile"
+                    app:layout_constraintStart_toEndOf="@+id/img_profile"
+                    app:layout_constraintTop_toTopOf="@+id/img_profile"
+                    app:layout_constraintVertical_bias="0.1" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="Ho Chi Minh, Viet Nam"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_displayName"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_displayName" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_caption"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:hint="Write a caption..."
+                    android:lines="3"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/img_profile"
+                    app:layout_constraintTop_toBottomOf="@+id/img_profile"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_addImage"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/bg_new_post"
+                android:drawableLeft="@drawable/ic_baseline_image_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Choose a photo"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tv_tagFriend"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/bg_new_post"
+                android:drawableLeft="@drawable/ic_baseline_supervised_user_circle_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Tag Friends"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tv_live"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/bg_new_post"
+                android:drawableLeft="@drawable/ic_baseline_videocam_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Live Camera"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/bg_new_post"
+                android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Location"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
