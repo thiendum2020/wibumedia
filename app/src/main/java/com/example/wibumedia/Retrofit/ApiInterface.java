@@ -20,12 +20,13 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
-//    @GET("user")
+    //    @GET("user")
 //    Call<String> getUserLogin(@Query("username") String username, @Query("password") String password);
 //
     @POST("login")
     Call<JSONResponseUser> getUserLogin(@Header("APIKEY") String key, @Query("username") String username, @Query("password") String password);
-//
+
+    //
 //
     @GET("post")
     Call<JSONResponsePost> getPost(@Header("APIKEY") String key);
@@ -36,7 +37,13 @@ public interface ApiInterface {
 
     @POST("post")
     @Multipart
-    Call<JSONResponsePost> addPost(@Header("APIKEY") String key, @Part("content")String content, @Part MultipartBody.Part file, @Part("user_id")String user_id);
+    Call<JSONResponsePost> addPost(@Header("APIKEY") String key, @Query("content") String content,
+                                   @Part MultipartBody.Part file, @Query("user_id") String user_id);
+
+    @POST("post")
+    @Multipart
+    Call<JSONResponsePost> addPost1(@Header("APIKEY") String key, @Part MultipartBody.Part file);
+
 //    Call<JSONResponseUser> addPost(@Header("APIKEY") String key, @Body POST postJ);
 //
 //

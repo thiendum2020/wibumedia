@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.example.wibumedia.FragmentReplaceActivity;
 import com.example.wibumedia.MainActivity;
 import com.example.wibumedia.Models.JSONResponsePost;
+import com.example.wibumedia.Models.JSONResponseUser;
 import com.example.wibumedia.R;
 import com.example.wibumedia.ReadPathUtil;
 import com.example.wibumedia.Retrofit.ApiInterface;
@@ -95,10 +96,7 @@ public class NewPostFragment extends Fragment {
         imageViewPic = view.findViewById(R.id.imageViewPicture);
         addPhoto = view.findViewById(R.id.btn_addImage);
         btnUpload = view.findViewById(R.id.btnUpload);
-        //tv_addImage = view.findViewById(R.id.tv_addImage);
-        /*tv_tagFriend = view.findViewById(R.id.tv_tagFriend);
-        tv_live = view.findViewById(R.id.tv_live);
-        tv_location = view.findViewById(R.id.tv_location);*/
+
         et_caption = view.findViewById(R.id.et_caption);
 
     }
@@ -131,7 +129,7 @@ public class NewPostFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //uploadImage();
-                Log.d("log","" + IMAGE_PATH);
+
                 final ProgressDialog progressDialog;
                 progressDialog = new ProgressDialog(getContext());
                 progressDialog.setMessage("Uploading...");
@@ -150,31 +148,47 @@ public class NewPostFragment extends Fragment {
 //                    e.printStackTrace();
 //                }
                 // create RequestBody instance from file
+                Log.d("body", "" + file);
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
                 // MultipartBody.Part is used to send also the actual file name
                 MultipartBody.Part body =
-                        MultipartBody.Part.createFormData("uploaded_file", file.getName(), requestFile);
-
-                Call<JSONResponsePost> call = service.addPost("VSBG",  "a", body,"1");
-
-                Log.d("body",""+file.getName());
-                call.enqueue(new Callback<JSONResponsePost>() {
+                        MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+                //SAI
+//                Call<JSONResponsePost> call = service.addPost("VSBG", "abc", body, "2");
+//                Call<JSONResponsePost> call = service.addPost1("VSBG", body);
+                service.addPost("VSBG", "" + et_caption.getText(), body, "1").enqueue(new Callback<JSONResponsePost>() {
                     @Override
                     public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
                         progressDialog.dismiss();
-                        Log.d("Upload", "success");
                         Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
+
                     }
+
                     @Override
                     public void onFailure(Call<JSONResponsePost> call, Throwable t) {
                         progressDialog.dismiss();
-                        Log.d("Upload error:", t.getMessage());
+                        Toast.makeText(getContext(), "cc!", Toast.LENGTH_SHORT).show();
+
                     }
 
-
+//                call.enqueue(new Callback<JSONResponsePost>() {
+//                    @Override
+//                    public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
+//                        progressDialog.dismiss();
+//                        Log.d("Upload", "" + response.body());
+//                        Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<JSONResponsePost> call, Throwable t) {
+//                        progressDialog.dismiss();
+//                        Log.d("Upload error:", t.getMessage());
+//                    }
+//
+//
+//                });
                 });
-
             }
         });
     }
@@ -193,23 +207,14 @@ public class NewPostFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        /*if(requestCode==0&&resultCode==RESULT_OK){
-        IMAGE_PATH=ReadPathUtil.getPath(getContext(),data.getData());
-        Uri uri=Uri.fromFile(new File(IMAGE_PATH));
-        // Load image
-            Log.d("vlxx","cccccc");
-        Glide.with(this).load(uri).override(420,594).centerCrop().into(imageViewPic);
-        Toast.makeText(getContext(),IMAGE_PATH,Toast.LENGTH_LONG).show();
-        }*/
-
         if (requestCode == PICK_IMAGE_REQUEST
                 && resultCode == RESULT_OK
                 && data != null
                 && data.getData() != null) {
             saveUri = data.getData();
-            Log.d("xxx", "s6x" + saveUri);
+            Log.d("xxx", "s6x___ " + saveUri);
             IMAGE_PATH = ReadPathUtil.getPath(getContext(), saveUri);
-            Log.d("vlxx", "ccc" + IMAGE_PATH);
+
             Picasso.get().load(saveUri)
                     .into(imageViewPic);
 //            Picasso.with(getContext()).load(saveUri).into(imageViewPic);
