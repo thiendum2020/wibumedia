@@ -80,10 +80,10 @@ public class OtherProfileAdapter extends ArrayAdapter<Post> {
         //holder.description.setText(post.getContent());
 
         //Picasso.with(getBaseContext()).load(post.getImage()).into(holder.post_image);
-//        Picasso.get().load(data.get(position).getImage())
-//                .into(holder.post_image);
-        Picasso.get().load("https://dienthoaivui.com.vn/wp-content/uploads/2020/10/hinh-nen-iphone-12-19-1024x1024.jpg")
+        Picasso.get().load(data.get(position).getImage())
                 .into(holder.post_image);
+//        Picasso.get().load("https://dienthoaivui.com.vn/wp-content/uploads/2020/10/hinh-nen-iphone-12-19-1024x1024.jpg")
+//                .into(holder.post_image);
         /*holder.username.setText(post.getUser().getUsername());
         holder.username.setText(post.getUser().getUsername());
         holder.username.setText(post.getUser().getUsername());*/
@@ -93,13 +93,13 @@ public class OtherProfileAdapter extends ArrayAdapter<Post> {
         holder.post_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intentHome = new Intent(getContext(), ProfileActivity.class);    //thay thế thành PostActivity...xml là post_item
+                /*Intent intentHome = new Intent(getContext(), PostAdapter.class);    //thay thế thành PostActivity...xml là post_item
                 Bundle bundle = new Bundle();
-                bundle.putString("UserID", String.valueOf(post.getUser().getId()));
+                bundle.putString("PostID", String.valueOf(post.getId()));
                 intentHome.putExtras(bundle);
-                Log.e("ghi","slasdjsaldjaslsd"+String.valueOf(post.getUser().getId()));
-                *//*intentHome.putExtra("UserID",adapter.post.getUser().getId());
-                Log.e("def","slaldkasldasl");*//*
+                Log.e("ghi","slasdjsaldjaslsd"+String.valueOf(post.getId()));
+                intentHome.putExtra("PostID",adapter.post.getUser().getId());
+                Log.e("def","slaldkasldasl");
                 context.startActivity(intentHome);*/
             }
         });

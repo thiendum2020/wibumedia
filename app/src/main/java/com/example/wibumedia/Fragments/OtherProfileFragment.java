@@ -37,6 +37,7 @@ public class OtherProfileFragment extends Fragment {
     ApiInterface service;
     GridView gridViewProfile;
     Context context;
+
     OtherProfileAdapter viewPagerAdapter = null;
     TextView tv_username;
     public OtherProfileFragment() {
@@ -50,6 +51,7 @@ public class OtherProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_other_profile, container, false);
         tv_username = view.findViewById(R.id.tv_username);
+
 
         gridViewProfile = view.findViewById(R.id.gridView_post);
         //Fragment fragment = new Fragment();
@@ -80,7 +82,7 @@ public class OtherProfileFragment extends Fragment {
                     Log.e("aaaa","brvdfvdv"+jsonResponsePost.getStatus());
 
                     //viết profile adapter để set giao diện cho 1 tấm hình hiển thị ở layout center profile...trong profile adapter thì row = inflater.inflate(R.layout.profile_item_image, parent, false);
-                    viewPagerAdapter = new OtherProfileAdapter(context.getApplicationContext(), R.layout.fragment_other_profile, posts);
+                    viewPagerAdapter = new OtherProfileAdapter(getActivity().getBaseContext(), R.layout.fragment_other_profile, posts);
                     gridViewProfile.setAdapter(viewPagerAdapter);
                     viewPagerAdapter.notifyDataSetChanged();
 

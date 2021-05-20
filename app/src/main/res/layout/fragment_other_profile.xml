@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:horizontalSpacing="2dp"
-                    android:numColumns="3"
+                    android:numColumns="1"
                     android:scrollbars="none"
                     android:stretchMode="columnWidth"
                     android:verticalSpacing="2dp" />

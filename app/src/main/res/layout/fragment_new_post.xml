@@ -150,8 +150,8 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tv_addImage"
+            <Button
+                android:id="@+id/btn_addImage"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="16dp"
@@ -166,8 +166,14 @@
                 android:textColor="@color/black"
                 android:textSize="14dp" />
 
-            <TextView
-                android:id="@+id/tv_tagFriend"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewPicture"/>
+
+
+            <Button
+                android:id="@+id/btnUpload"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="16dp"
@@ -177,11 +183,11 @@
                 android:fontFamily="@font/montserrat_medium"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Tag Friends"
+                android:text="Upload"
                 android:textColor="@color/black"
                 android:textSize="14dp" />
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/tv_live"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -209,7 +215,7 @@
                 android:paddingLeft="10dp"
                 android:text="Location"
                 android:textColor="@color/black"
-                android:textSize="14dp" />
+                android:textSize="14dp" />-->
         </LinearLayout>
 
     </ScrollView>
