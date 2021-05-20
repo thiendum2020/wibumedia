@@ -150,12 +150,18 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:id="@+id/imageViewPicture"
+                android:layout_gravity="center"/>
             <Button
                 android:id="@+id/btn_addImage"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_new_post"
                 android:drawableLeft="@drawable/ic_baseline_image_24"
                 android:drawablePadding="10dp"
@@ -165,12 +171,6 @@
                 android:text="Choose a photo"
                 android:textColor="@color/black"
                 android:textSize="14dp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageViewPicture"/>
-
 
             <Button
                 android:id="@+id/btnUpload"

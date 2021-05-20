@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,8 +32,11 @@ import com.example.wibumedia.ReadPathUtil;
 import com.example.wibumedia.Retrofit.ApiInterface;
 import com.example.wibumedia.Retrofit.Common;
 import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
@@ -132,7 +136,17 @@ public class NewPostFragment extends Fragment {
                 progressDialog.setMessage("Uploading...");
                 progressDialog.show();
 
-                File file = new File(IMAGE_PATH);
+                File file = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DOWNLOADS).toString()
+                        + "/storage/emulated/0/Download/06775a29b959832874527d6296503e30.jpg");
+                //entity.addPart("picture", new FileBody(file,"image/jpg"));
+
+                /*File file = null;
+                try {
+                    file = new File(new URI(IMAGE_PATH));
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }*/
                 // create RequestBody instance from file
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
@@ -172,6 +186,7 @@ public class NewPostFragment extends Fragment {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
     }
 
 
@@ -193,7 +208,13 @@ public class NewPostFragment extends Fragment {
                 && data != null
                 && data.getData() != null) {
             saveUri = data.getData();
+            Log.d("xxx","s6x"+saveUri);
             IMAGE_PATH = ReadPathUtil.getPath(getContext(),saveUri);
+            Log.d("vlxx","ccc"+IMAGE_PATH);
+            Picasso.get().load(saveUri)
+                    .into(imageViewPic);
+//            Picasso.with(getContext()).load(saveUri).into(imageViewPic);
+
         }
 //            btnSelectImage.setText("Image Selected");
 //            btnUploadImage.setEnabled(true);
