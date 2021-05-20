@@ -9,6 +9,8 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
+import java.io.File;
+
 public class ReadPathUtil {
     /// get path API >19 KITKAT
     public static String getPath(final Context context, final Uri uri) {
@@ -30,11 +32,33 @@ public class ReadPathUtil {
             // DownloadsProvider
             else if (isDownloadsDocument(uri)) {
 
-                final String id = DocumentsContract.getDocumentId(uri);
+               /* final String id = DocumentsContract.getDocumentId(uri);
+
+
                 final Uri contentUri = ContentUris.withAppendedId(
                         Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
 
-                return getDataColumn(context, contentUri, null, null);
+                return getDataColumn(context, contentUri, null, null);*/
+                final String id = DocumentsContract.getDocumentId(uri);
+
+                if (id != null && id.startsWith("raw:")) {
+                    return id.substring(4);
+                }
+
+                String[] contentUriPrefixesToTry = new String[]{
+                        "content://downloads/public_downloads",
+                        "content://downloads/my_downloads"
+                };
+
+                for (String contentUriPrefix : contentUriPrefixesToTry) {
+                    Uri contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.valueOf(id));
+                    try {
+                        String path = getDataColumn(context, contentUri, null, null);
+                        if (path != null) {
+                            return path;
+                        }
+                    } catch (Exception e) {}
+                }
             }
             // MediaProvider
             else if (isMediaDocument(uri)) {

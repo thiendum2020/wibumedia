@@ -57,8 +57,8 @@ public class NewPostFragment extends Fragment {
 
     private ImageView imageViewPic;
 
-    String IMAGE_PATH;
-    private final int PICK_IMAGE_REQUEST = 71;
+    String IMAGE_PATH = "";
+    private final int PICK_IMAGE_REQUEST = 77;
     Uri saveUri;
     ApiInterface service;
 
@@ -131,22 +131,24 @@ public class NewPostFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //uploadImage();
+                Log.d("log","" + IMAGE_PATH);
                 final ProgressDialog progressDialog;
                 progressDialog = new ProgressDialog(getContext());
                 progressDialog.setMessage("Uploading...");
                 progressDialog.show();
 
-                File file = new File(Environment.getExternalStoragePublicDirectory(
+               /* File file = new File(Environment.getExternalStoragePublicDirectory(
                         Environment.DIRECTORY_DOWNLOADS).toString()
-                        + "/storage/emulated/0/Download/06775a29b959832874527d6296503e30.jpg");
-                //entity.addPart("picture", new FileBody(file,"image/jpg"));
+                        + IMAGE_PATH);
+                Log.d("img_path", "" + IMAGE_PATH);
+                //entity.addPart("picture", new FileBody(file,"image/jpg"));*/
 
-                /*File file = null;
-                try {
-                    file = new File(new URI(IMAGE_PATH));
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }*/
+                File file = new File(IMAGE_PATH);
+//                try {
+//                    file =
+//                } catch (URISyntaxException e) {
+//                    e.printStackTrace();
+//                }
                 // create RequestBody instance from file
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
@@ -154,23 +156,20 @@ public class NewPostFragment extends Fragment {
                 MultipartBody.Part body =
                         MultipartBody.Part.createFormData("uploaded_file", file.getName(), requestFile);
 
-                Call<JSONResponsePost> call = service.addPost("VSBG", body);
+                Call<JSONResponsePost> call = service.addPost("VSBG",  "a", body,"1");
+
+                Log.d("body",""+file.getName());
                 call.enqueue(new Callback<JSONResponsePost>() {
                     @Override
                     public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
                         progressDialog.dismiss();
-                        JSONResponsePost jsonResponsePost = response.body();
-//                if (message.getMessage().equals("Success")) {
-//                    Toast.makeText(MultipartUpload.this, R.string.string_upload_success, Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(MultipartUpload.this, R.string.string_upload_fail, Toast.LENGTH_SHORT).show();
-//                }
+                        Log.d("Upload", "success");
+                        Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
                     }
-
                     @Override
                     public void onFailure(Call<JSONResponsePost> call, Throwable t) {
                         progressDialog.dismiss();
-                        //Log.e(TAG, t.toString());
+                        Log.d("Upload error:", t.getMessage());
                     }
 
 
@@ -191,8 +190,8 @@ public class NewPostFragment extends Fragment {
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
         /*if(requestCode==0&&resultCode==RESULT_OK){
         IMAGE_PATH=ReadPathUtil.getPath(getContext(),data.getData());
@@ -208,9 +207,9 @@ public class NewPostFragment extends Fragment {
                 && data != null
                 && data.getData() != null) {
             saveUri = data.getData();
-            Log.d("xxx","s6x"+saveUri);
-            IMAGE_PATH = ReadPathUtil.getPath(getContext(),saveUri);
-            Log.d("vlxx","ccc"+IMAGE_PATH);
+            Log.d("xxx", "s6x" + saveUri);
+            IMAGE_PATH = ReadPathUtil.getPath(getContext(), saveUri);
+            Log.d("vlxx", "ccc" + IMAGE_PATH);
             Picasso.get().load(saveUri)
                     .into(imageViewPic);
 //            Picasso.with(getContext()).load(saveUri).into(imageViewPic);
@@ -218,7 +217,7 @@ public class NewPostFragment extends Fragment {
         }
 //            btnSelectImage.setText("Image Selected");
 //            btnUploadImage.setEnabled(true);
-        }
+    }
 
     /*private void uploadImage() {
         final ProgressDialog progressDialog;
@@ -340,7 +339,6 @@ public class NewPostFragment extends Fragment {
                         }
                     });
         }*/
-
 
 
 }

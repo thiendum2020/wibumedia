@@ -61,78 +61,68 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/layout_otherProfile"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_margin="16dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/layout_otherProfile"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="180dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/img_profile_2"
+                app:civ_border_color="@color/black"
+                app:civ_border_width="1dp" />
+
+            <TextView
+                android:id="@+id/tv_displayName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="phu.wibu"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_light"
+                android:text="Nhat Ban"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_otherProfile"
+            android:layout_margin="16dp">
+
+            <GridView
+                android:id="@+id/gridView_post"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/toolbar"
-                android:layout_margin="16dp"
-                android:orientation="vertical">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/img_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="180dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/img_profile_2"
-                    app:civ_border_color="@color/black"
-                    app:civ_border_width="1dp" />
-
-                <TextView
-                    android:id="@+id/tv_displayName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="16dp"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:text="phu.wibu"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/montserrat_light"
-                    android:text="Nhat Ban"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/layout_otherProfile"
-                android:layout_margin="16dp">
-
-                <GridView
-                    android:id="@+id/gridView_post"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:horizontalSpacing="2dp"
-                    android:numColumns="1"
-                    android:scrollbars="none"
-                    android:stretchMode="columnWidth"
-                    android:verticalSpacing="2dp" />
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+                android:gravity="center"
+                android:horizontalSpacing="2dp"
+                android:numColumns="3"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="2dp" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>
