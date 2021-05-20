@@ -148,7 +148,7 @@ public class NewPostFragment extends Fragment {
 //                    e.printStackTrace();
 //                }
                 // create RequestBody instance from file
-                Log.d("body", "" + file);
+                Log.d("body", "" + Common.currentUser.getId());
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
                 // MultipartBody.Part is used to send also the actual file name
@@ -157,7 +157,7 @@ public class NewPostFragment extends Fragment {
                 //SAI
 //                Call<JSONResponsePost> call = service.addPost("VSBG", "abc", body, "2");
 //                Call<JSONResponsePost> call = service.addPost1("VSBG", body);
-                service.addPost("VSBG", "" + et_caption.getText(), body, "1").enqueue(new Callback<JSONResponsePost>() {
+                service.addPost("VSBG", "" + et_caption.getText(), body, ""+Common.currentUser.getId()).enqueue(new Callback<JSONResponsePost>() {
                     @Override
                     public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
                         progressDialog.dismiss();

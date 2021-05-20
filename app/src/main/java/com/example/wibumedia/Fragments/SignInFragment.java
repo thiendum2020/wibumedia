@@ -86,7 +86,9 @@ public class SignInFragment extends Fragment {
                         public void onResponse(Call<JSONResponseUser> call, Response<JSONResponseUser> response) {
                             if(Integer.parseInt(response.body().getStatus())==1)
                             {
-                                Common.currentUser.setUsername(et_username.getText().toString());
+
+                                Common.currentUser = response.body().getData();
+
 
                                 Toast.makeText(getContext(), "Sign in successfully !", Toast.LENGTH_SHORT).show();
 
