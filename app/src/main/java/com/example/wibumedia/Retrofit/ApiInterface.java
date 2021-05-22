@@ -40,11 +40,8 @@ public interface ApiInterface {
     Call<JSONResponsePost> addPost(@Header("APIKEY") String key, @Query("content") String content,
                                    @Part MultipartBody.Part file, @Query("user_id") String user_id);
 
-    @POST("post")
-    @Multipart
-    Call<JSONResponsePost> addPost1(@Header("APIKEY") String key, @Part MultipartBody.Part file);
-
-//    Call<JSONResponseUser> addPost(@Header("APIKEY") String key, @Body POST postJ);
+    @PUT("post/{id}")
+    Call<JSONResponsePost> updatePost(@Header("APIKEY") String key, @Path("id") String id, @Query("content") String content);
 //
 //
 //    @GET("foods")

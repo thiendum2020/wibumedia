@@ -38,11 +38,8 @@ public class OtherProfileAdapter extends ArrayAdapter<Post> {
         this.data = data;
     }
 
-    class OtherProfileHolder {
-        CircleImageView img_profile;
-        TextView username, count_like, publisher, description, no_of_comments;
-        ImageView post_image, like, comment;
-
+    static class OtherProfileHolder {
+        ImageView post_image;
         public OtherProfileHolder() {
         }
     }
@@ -54,9 +51,7 @@ public class OtherProfileAdapter extends ArrayAdapter<Post> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Log.e("abc","abcd");
         View row = convertView;
-
 
         if (row != null) {
             holder = (OtherProfileHolder) row.getTag();
@@ -64,30 +59,11 @@ public class OtherProfileAdapter extends ArrayAdapter<Post> {
             holder = new OtherProfileHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             row = inflater.inflate(R.layout.image_item, parent, false);
-
-
             holder.post_image = row.findViewById(R.id.imageProfileItem);
 
-
+            Picasso.get().load(""+data.get(position).getImage()).into(holder.post_image);
             row.setTag(holder);
         }
-
-        Post post = data.get(position);
-        //holder.username.setText(post.getUser().getUsername());
-
-
-
-        //holder.description.setText(post.getContent());
-
-        //Picasso.with(getBaseContext()).load(post.getImage()).into(holder.post_image);
-        Picasso.get().load(data.get(position).getImage())
-                .into(holder.post_image);
-//        Picasso.get().load("https://dienthoaivui.com.vn/wp-content/uploads/2020/10/hinh-nen-iphone-12-19-1024x1024.jpg")
-//                .into(holder.post_image);
-        /*holder.username.setText(post.getUser().getUsername());
-        holder.username.setText(post.getUser().getUsername());
-        holder.username.setText(post.getUser().getUsername());*/
-
 
         //khi click vào 1 hình ảnh trong lưới thì sẽ hiển thị bài đăng chi tiết của ảnh đang click (CHƯA VIẾT)
         holder.post_image.setOnClickListener(new View.OnClickListener() {
@@ -103,17 +79,6 @@ public class OtherProfileAdapter extends ArrayAdapter<Post> {
                 context.startActivity(intentHome);*/
             }
         });
-
-            /*@Override
-            public void onClick(View v, int position) {
-                //Common.currentUser.setUsername(post.getUser().getUsername());
-                Intent intentHome = new Intent(getContext(), ProfileActivity.class);
-                intentHome.putExtra("UserID",holder.username.getId());
-                context.startActivity(intentHome);
-                //getActivity().getFragmentManager().popBackStack();
-            }*/
-
-
         return row;
     }
 }

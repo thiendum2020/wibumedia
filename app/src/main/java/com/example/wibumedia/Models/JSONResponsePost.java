@@ -2,7 +2,7 @@ package com.example.wibumedia.Models;
 
 public class JSONResponsePost {
     private String status;
-    private Post []data;
+    private Post[] data;
 
     public JSONResponsePost(String status, Post []data) {
         this.status = status;

@@ -148,7 +148,7 @@ public class NewPostFragment extends Fragment {
 //                    e.printStackTrace();
 //                }
                 // create RequestBody instance from file
-                Log.d("body", "" + Common.currentUser.getId());
+                Log.d("body", "" + IMAGE_PATH);
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
                 // MultipartBody.Part is used to send also the actual file name

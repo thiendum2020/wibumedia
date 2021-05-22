@@ -89,14 +89,8 @@ public class HomeFragment extends Fragment {
                     Toast.makeText(getContext(), "Erro : "+ t, Toast.LENGTH_SHORT).show();
                 }
             });
-
-            //loadJSONPostID();
-
-//            mListView.scheduleLayoutAnimation();
-
         } else {
             Toast.makeText(getActivity(), "Please check your internet!!", Toast.LENGTH_SHORT).show();
-//            return;
         }
 
     }
