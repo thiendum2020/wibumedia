@@ -86,12 +86,6 @@ public class OtherProfileFragment extends Fragment {
                         return;
                     }
                     posts = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
-                    if(posts.get(0).getUser().getId().equals(Common.currentUser.getId())){
-//                        ProfileFragment profileFragment = new ProfileFragment();
-//                        fragmentManager.beginTransaction().replace(R.id.frameLayout, profileFragment)
-//                                .commit();
-                    }
-                    else {
 
                     tv_username.setText(posts.get(0).getUser().getUsername());
                     tv_displayName.setText(posts.get(0).getUser().getName());
@@ -101,7 +95,7 @@ public class OtherProfileFragment extends Fragment {
                     viewPagerAdapter = new OtherProfileAdapter(getActivity().getBaseContext(), R.layout.fragment_other_profile, posts);
                     gridViewProfile.setAdapter(viewPagerAdapter);
                     viewPagerAdapter.notifyDataSetChanged();
-                    }
+
 
                 }
 

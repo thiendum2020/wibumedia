@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wibumedia.Fragments.HomeFragment;
 import com.example.wibumedia.Fragments.OtherProfileFragment;
+import com.example.wibumedia.Fragments.ProfileFragment;
 import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
+import com.example.wibumedia.Retrofit.Common;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -27,8 +29,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private LayoutInflater mInflater;
-
+    final String key = "VSBG";
     private ArrayList<Post> list;
+    private ArrayList<Post> posts;
     Context context;
     HomeFragment homeFragment;
     boolean clicked = false;
@@ -82,17 +85,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.tv_displayName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ((FragmentReplaceActivity) homeFragment.getActivity()).setFragment(new OtherProfileFragment());
-                Fragment someFragment = new OtherProfileFragment();
-                Bundle bundle = new Bundle();
 
-                bundle.putString("UserID", String.valueOf(model.getUser().getId()));
-                someFragment.setArguments(bundle);
 
-                FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frameLayout, someFragment ); // give your fragment container id in first parameter
-                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                transaction.commit();
+                if (list.get(position).getUser().getId().equals(Common.currentUser.getId())) {
+                    Fragment someFragment = new ProfileFragment();
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("UserID", String.valueOf(model.getUser().getId()));
+                    someFragment.setArguments(bundle);
+
+                    FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
+                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                    transaction.commit();
+                } else {
+                    Fragment someFragment = new OtherProfileFragment();
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("UserID", String.valueOf(model.getUser().getId()));
+                    someFragment.setArguments(bundle);
+
+                    FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
+                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                    transaction.commit();
+                }
+
             }
         });
 

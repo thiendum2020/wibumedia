@@ -36,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
+        else {
+            animatedBottomBar.selectTabById(R.id.profile, true);
+        }
+
+
         animatedBottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
             public void onTabSelected(int lastIndex, @Nullable AnimatedBottomBar.Tab lastTab, int newIndex, @NotNull AnimatedBottomBar.Tab newTab) {
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Log.e(TAG, "Error in creating Fragment");
                 }
+
             }
         });
     }

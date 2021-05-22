@@ -1,15 +1,11 @@
 package com.example.wibumedia.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,29 +15,25 @@ import com.example.wibumedia.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class OtherProfileAdapter extends ArrayAdapter<Post> {
+public class ProfileAdapter extends ArrayAdapter<Post> {
     Context context;
     int resource;
     Post post = null;
     ArrayList<Post> data = null;
     PostAdapter adapter;
-    OtherProfileHolder holder = null;
+    ProfileHolder holder = null;
 
 
-    public OtherProfileAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Post> data) {
+    public ProfileAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Post> data) {
         super(context, resource);
         this.context = context;
         this.resource = resource;
         this.data = data;
     }
 
-    static class OtherProfileHolder {
+    static class ProfileHolder {
         ImageView post_image;
-
-        public OtherProfileHolder() {
+        public ProfileHolder() {
         }
     }
 
@@ -49,22 +41,22 @@ public class OtherProfileAdapter extends ArrayAdapter<Post> {
     public int getCount() {
         return data.size();
     }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
 
         if (row != null) {
-            holder = (OtherProfileHolder) row.getTag();
+            holder = (ProfileAdapter.ProfileHolder) row.getTag();
         } else {
-            holder = new OtherProfileHolder();
+            holder = new ProfileAdapter.ProfileHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             row = inflater.inflate(R.layout.image_item, parent, false);
             holder.post_image = row.findViewById(R.id.imageProfileItem);
 
-            Picasso.get().load("" + data.get(position).getImage()).resize(600, 600)
-                    .centerCrop().into(holder.post_image);
+            Picasso.get().load(""+data.get(position).getImage()).resize(600,600)
+                    .centerCrop()
+                    .into(holder.post_image);
             row.setTag(holder);
         }
 

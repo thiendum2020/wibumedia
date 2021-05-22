@@ -19,13 +19,24 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.wibumedia.Adapters.OtherProfileAdapter;
+import com.example.wibumedia.Adapters.ProfileAdapter;
+import com.example.wibumedia.Models.JSONResponsePost;
+import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
 import com.example.wibumedia.Retrofit.ApiInterface;
 import com.example.wibumedia.Retrofit.Common;
 import com.example.wibumedia.WelcomeActivity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ProfileFragment extends Fragment {
@@ -37,8 +48,10 @@ public class ProfileFragment extends Fragment {
 
 
     private Button btn_editProfile;
-    private TextView tv_username, tv_displayName, tv_gmail;
+    private TextView tv_username, tv_displayName, tv_gmail, tv_birthday;
     private ImageButton btn_logOut;
+    ProfileAdapter viewPagerAdapter = null;
+
     private CircleImageView img_profile;
     private GridView gridView_post;
 
@@ -72,10 +85,8 @@ public class ProfileFragment extends Fragment {
         }
 
         btn_editProfile = view.findViewById(R.id.btn_editProfile);
-
-        tv_username = view.findViewById(R.id.tv_username);
         tv_displayName = view.findViewById(R.id.tv_displayName);
-        tv_gmail = view.findViewById(R.id.tv_gmail);
+        tv_birthday = view.findViewById(R.id.tv_birthday);
         img_profile = view.findViewById(R.id.img_profile);
 
         btn_logOut = view.findViewById(R.id.btn_logOut);
@@ -84,11 +95,10 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setEvent() {
-
-        tv_username.setText(Common.currentUser.getUsername());
         tv_displayName.setText(Common.currentUser.getName());
-        tv_gmail.setText(Common.currentUser.getEmail());
+        tv_birthday.setText(Common.currentUser.getBirthday());
 //        Picasso.get().load(Common.currentUser.get).into(img_profile);
+        loadMyProfile(Common.currentUser.getId());
 
         btn_editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,5 +141,33 @@ public class ProfileFragment extends Fragment {
                 alert.show();
             }
         });
+    }
+
+    private void loadMyProfile(String userId) {
+        service.getPostUserID(key, userId).enqueue(new Callback<JSONResponsePost>() {
+            @Override
+            public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
+                JSONResponsePost jsonResponsePost = response.body();
+                if (jsonResponsePost.getData() == null) {
+                    Toast.makeText(getContext(), "This Profile does not has any Post", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Post> posts = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
+
+                tv_displayName.setText(Common.currentUser.getName());
+                tv_birthday.setText(Common.currentUser.getBirthday());
+
+                //viết profile adapter để set giao diện cho 1 tấm hình hiển thị ở layout center profile...trong profile adapter thì row = inflater.inflate(R.layout.profile_item_image, parent, false);
+                viewPagerAdapter = new ProfileAdapter(getActivity().getBaseContext(), R.layout.fragment_other_profile, posts);
+                gridView_post.setAdapter(viewPagerAdapter);
+                viewPagerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponsePost> call, Throwable t) {
+                Toast.makeText(getContext(), "Error : " + t, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
