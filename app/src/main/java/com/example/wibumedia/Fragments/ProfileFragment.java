@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import com.example.wibumedia.R;
 import com.example.wibumedia.Retrofit.ApiInterface;
 import com.example.wibumedia.Retrofit.Common;
 import com.example.wibumedia.WelcomeActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,7 +86,7 @@ public class ProfileFragment extends Fragment {
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         }
 
-        btn_editProfile = view.findViewById(R.id.btn_editProfile);
+//        btn_editProfile = view.findViewById(R.id.btn_editProfile);
         tv_displayName = view.findViewById(R.id.tv_displayName);
         tv_birthday = view.findViewById(R.id.tv_birthday);
         img_profile = view.findViewById(R.id.img_profile);
@@ -97,19 +99,22 @@ public class ProfileFragment extends Fragment {
     private void setEvent() {
         tv_displayName.setText(Common.currentUser.getName());
         tv_birthday.setText(Common.currentUser.getBirthday());
+        Log.d("qwerty", "" + Common.currentUser.getAvatar());
+        Picasso.get().load(Common.currentUser.getAvatar()).resize(500,500)
+                .into(img_profile);
 //        Picasso.get().load(Common.currentUser.get).into(img_profile);
         loadMyProfile(Common.currentUser.getId());
 
-        btn_editProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment someFragment = new EditProfileFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.profile, someFragment); // give your fragment container id in first parameter
-                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                transaction.commit();
-            }
-        });
+//        btn_editProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment someFragment = new EditProfileFragment();
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                transaction.replace(R.id.profile, someFragment); // give your fragment container id in first parameter
+//                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+//                transaction.commit();
+//            }
+//        });
 
         btn_logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +163,7 @@ public class ProfileFragment extends Fragment {
                 tv_birthday.setText(Common.currentUser.getBirthday());
 
                 //viết profile adapter để set giao diện cho 1 tấm hình hiển thị ở layout center profile...trong profile adapter thì row = inflater.inflate(R.layout.profile_item_image, parent, false);
-                viewPagerAdapter = new ProfileAdapter(getActivity().getBaseContext(), R.layout.fragment_other_profile, posts);
+                viewPagerAdapter = new ProfileAdapter(getActivity().getBaseContext(), R.layout.fragment_other_profile, posts, ProfileFragment.this);
                 gridView_post.setAdapter(viewPagerAdapter);
                 viewPagerAdapter.notifyDataSetChanged();
             }

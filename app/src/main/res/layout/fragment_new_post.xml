@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newPostFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:id="@+id/newPostFragment"
     tools:context=".Fragments.NewPostFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -49,10 +49,10 @@
                 android:layout_height="?android:attr/actionBarSize"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
+                android:background="@drawable/ripple_effect_raise"
                 android:fontFamily="@font/montserrat_medium"
                 android:gravity="center"
+                android:padding="16dp"
                 android:text="Done"
                 android:textColor="#047AF1"
                 android:textSize="14sp"
@@ -151,18 +151,20 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
-                android:layout_marginTop="20dp"
+                android:id="@+id/imageViewPicture"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:id="@+id/imageViewPicture"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp" />
+
             <Button
                 android:id="@+id/btn_addImage"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/bg_new_post"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/ripple_effect_raise"
                 android:drawableLeft="@drawable/ic_baseline_image_24"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/montserrat_medium"
@@ -172,20 +174,20 @@
                 android:textColor="@color/black"
                 android:textSize="14dp" />
 
-            <Button
-                android:id="@+id/btnUpload"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="16dp"
-                android:background="@drawable/bg_new_post"
-                android:drawableLeft="@drawable/ic_baseline_supervised_user_circle_24"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/montserrat_medium"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="Upload"
-                android:textColor="@color/black"
-                android:textSize="14dp" />
+            <!--            <Button-->
+            <!--                android:id="@+id/btnUpload"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="60dp"-->
+            <!--                android:layout_marginLeft="16dp"-->
+            <!--                android:background="@drawable/bg_new_post"-->
+            <!--                android:drawableLeft="@drawable/ic_baseline_supervised_user_circle_24"-->
+            <!--                android:drawablePadding="10dp"-->
+            <!--                android:fontFamily="@font/montserrat_medium"-->
+            <!--                android:gravity="center_vertical"-->
+            <!--                android:paddingLeft="10dp"-->
+            <!--                android:text="Upload"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:textSize="14dp" />-->
 
             <!--<TextView
                 android:id="@+id/tv_live"

@@ -1,6 +1,7 @@
 package com.example.wibumedia.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,11 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.wibumedia.Fragments.DetailPostFragment;
+import com.example.wibumedia.Fragments.ProfileFragment;
 import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
 import com.squareup.picasso.Picasso;
@@ -22,13 +27,14 @@ public class ProfileAdapter extends ArrayAdapter<Post> {
     ArrayList<Post> data = null;
     PostAdapter adapter;
     ProfileHolder holder = null;
+    ProfileFragment profileFragment;
 
-
-    public ProfileAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Post> data) {
+    public ProfileAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Post> data, ProfileFragment profileFragment) {
         super(context, resource);
         this.context = context;
         this.resource = resource;
         this.data = data;
+        this.profileFragment = profileFragment;
     }
 
     static class ProfileHolder {
@@ -64,14 +70,16 @@ public class ProfileAdapter extends ArrayAdapter<Post> {
         holder.post_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intentHome = new Intent(getContext(), PostAdapter.class);    //thay thế thành PostActivity...xml là post_item
+                Fragment someFragment = new DetailPostFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("PostID", String.valueOf(post.getId()));
-                intentHome.putExtras(bundle);
-                Log.e("ghi","slasdjsaldjaslsd"+String.valueOf(post.getId()));
-                intentHome.putExtra("PostID",adapter.post.getUser().getId());
-                Log.e("def","slaldkasldasl");
-                context.startActivity(intentHome);*/
+
+                bundle.putString("PostID", String.valueOf(data.get(position).getId()));
+                someFragment.setArguments(bundle);
+
+                FragmentTransaction transaction = profileFragment.getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, someFragment ); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
             }
         });
         return row;

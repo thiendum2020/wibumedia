@@ -107,21 +107,21 @@
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-                <Button
-                    android:id="@+id/btn_editProfile"
-                    style="@style/Theme.AppCompat"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_below="@+id/tv_address"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/button_edit"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:text="Edit Profile"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+<!--                <Button-->
+<!--                    android:id="@+id/btn_editProfile"-->
+<!--                    style="@style/Theme.AppCompat"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_below="@+id/tv_address"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginTop="12dp"-->
+<!--                    android:layout_marginBottom="12dp"-->
+<!--                    android:background="@drawable/button_edit"-->
+<!--                    android:fontFamily="@font/montserrat_medium"-->
+<!--                    android:text="Edit Profile"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textStyle="bold" />-->
 
             </LinearLayout>
         </LinearLayout>
@@ -138,11 +138,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:horizontalSpacing="0dp"
+                android:horizontalSpacing="2dp"
                 android:numColumns="3"
                 android:scrollbars="none"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="0dp" />
+                android:verticalSpacing="2dp" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

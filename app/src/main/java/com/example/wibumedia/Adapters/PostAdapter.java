@@ -54,8 +54,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post model = list.get(position);
 
+        Picasso.get().load(list.get(position).getUser().getAvatar())
+                .into(holder.img_profile);
 
-        //holder.img_post.setImageResource(model.getImage());
         Picasso.get().load(list.get(position).getImage())
                 .into(holder.img_post);
         holder.tv_displayName.setText(model.getUser().getUsername());
@@ -82,6 +83,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
+        holder.img_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         holder.tv_displayName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,8 +142,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tv_displayName = itemView.findViewById(R.id.tv_displayName);
             tv_address = itemView.findViewById(R.id.tv_address);
             tv_caption = itemView.findViewById(R.id.tv_caption);
-            tv_like = itemView.findViewById(R.id.tv_like);
-            tv_comment = itemView.findViewById(R.id.tv_comment);
+//            tv_like = itemView.findViewById(R.id.tv_like);
+//            tv_comment = itemView.findViewById(R.id.tv_comment);
         }
     }
 }

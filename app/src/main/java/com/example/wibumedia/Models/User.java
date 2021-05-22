@@ -8,8 +8,9 @@ public class User {
     private String email;
     private String phone;
     private String birthday;
+    private String avatar;
 
-    public User(String id, String username, String password, String name, String email, String phone, String birthday) {
+    public User(String id, String username, String password, String name, String email, String phone, String birthday, String avatar) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -17,7 +18,7 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.birthday = birthday;
-
+        this.avatar = avatar;
     }
 
     public User() {
@@ -77,5 +78,13 @@ public class User {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

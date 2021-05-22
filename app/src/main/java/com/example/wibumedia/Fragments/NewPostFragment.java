@@ -95,22 +95,16 @@ public class NewPostFragment extends Fragment {
 
         imageViewPic = view.findViewById(R.id.imageViewPicture);
         addPhoto = view.findViewById(R.id.btn_addImage);
-        btnUpload = view.findViewById(R.id.btnUpload);
+//        btnUpload = view.findViewById(R.id.btnUpload);
 
         et_caption = view.findViewById(R.id.et_caption);
 
     }
 
     private void setEvent() {
+        tv_displayName.setText(Common.currentUser.getName());
 
         btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
-                getActivity().finish();
-            }
-        });
-        tv_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
@@ -125,70 +119,45 @@ public class NewPostFragment extends Fragment {
             }
         });
 
-        btnUpload.setOnClickListener(new View.OnClickListener() {
+        tv_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //uploadImage();
+                if (IMAGE_PATH.equals("")) {
+                    Toast.makeText(getContext(), "Chưa chọn ảnh!", Toast.LENGTH_SHORT).show();
+                } else {
+                    final ProgressDialog progressDialog;
+                    progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setMessage("Uploading...");
+                    progressDialog.show();
 
-                final ProgressDialog progressDialog;
-                progressDialog = new ProgressDialog(getContext());
-                progressDialog.setMessage("Uploading...");
-                progressDialog.show();
+                    File file = new File(IMAGE_PATH);
 
-               /* File file = new File(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_DOWNLOADS).toString()
-                        + IMAGE_PATH);
-                Log.d("img_path", "" + IMAGE_PATH);
-                //entity.addPart("picture", new FileBody(file,"image/jpg"));*/
+                    // create RequestBody instance from file
+                    Log.d("body", "" + IMAGE_PATH);
+                    RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-                File file = new File(IMAGE_PATH);
-//                try {
-//                    file =
-//                } catch (URISyntaxException e) {
-//                    e.printStackTrace();
-//                }
-                // create RequestBody instance from file
-                Log.d("body", "" + IMAGE_PATH);
-                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    // MultipartBody.Part is used to send also the actual file name
+                    MultipartBody.Part body =
+                            MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
-                // MultipartBody.Part is used to send also the actual file name
-                MultipartBody.Part body =
-                        MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-                //SAI
-//                Call<JSONResponsePost> call = service.addPost("VSBG", "abc", body, "2");
-//                Call<JSONResponsePost> call = service.addPost1("VSBG", body);
-                service.addPost("VSBG", "" + et_caption.getText(), body, ""+Common.currentUser.getId()).enqueue(new Callback<JSONResponsePost>() {
-                    @Override
-                    public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
-                        progressDialog.dismiss();
-                        Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
+                    service.addPost("VSBG", "" + et_caption.getText(), body, "" + Common.currentUser.getId()).enqueue(new Callback<JSONResponsePost>() {
+                        @Override
+                        public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+                            getActivity().finish();
+                        }
 
-                    }
+                        @Override
+                        public void onFailure(Call<JSONResponsePost> call, Throwable t) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(), "cc!", Toast.LENGTH_SHORT).show();
 
-                    @Override
-                    public void onFailure(Call<JSONResponsePost> call, Throwable t) {
-                        progressDialog.dismiss();
-                        Toast.makeText(getContext(), "cc!", Toast.LENGTH_SHORT).show();
-
-                    }
-
-//                call.enqueue(new Callback<JSONResponsePost>() {
-//                    @Override
-//                    public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
-//                        progressDialog.dismiss();
-//                        Log.d("Upload", "" + response.body());
-//                        Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<JSONResponsePost> call, Throwable t) {
-//                        progressDialog.dismiss();
-//                        Log.d("Upload error:", t.getMessage());
-//                    }
-//
-//
-//                });
-                });
+                        }
+                    });
+                }
             }
         });
     }
@@ -223,127 +192,5 @@ public class NewPostFragment extends Fragment {
 //            btnSelectImage.setText("Image Selected");
 //            btnUploadImage.setEnabled(true);
     }
-
-    /*private void uploadImage() {
-        final ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Uploading...");
-        progressDialog.show();
-        *//*Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(UPLOAD_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();*//*
-        //ApiInterface service = retrofit.create(FileUploadService.class);
-        File file = new File(IMAGE_PATH);
-        // create RequestBody instance from file
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-        // MultipartBody.Part is used to send also the actual file name
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("uploaded_file", file.getName(), requestFile);
-
-        Call<JSONResponsePost> call = service.addPost("VSBG",body);
-        call.enqueue(new Callback<JSONResponsePost>() {
-                         @Override
-                         public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
-                             progressDialog.dismiss();
-                             JSONResponsePost jsonResponsePost = response.body();
-//                if (message.getMessage().equals("Success")) {
-//                    Toast.makeText(MultipartUpload.this, R.string.string_upload_success, Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(MultipartUpload.this, R.string.string_upload_fail, Toast.LENGTH_SHORT).show();
-//                }
-                         }
-
-                         @Override
-                         public void onFailure(Call<JSONResponsePost> call, Throwable t) {
-                             progressDialog.dismiss();
-                             //Log.e(TAG, t.toString());
-                         }
-                     }
-    }*/
-
-
-
-
-
-
-    /*private void uploadImage() {
-        if (saveUri != null) {
-            ProgressDialog mDiaglog = new ProgressDialog(this);
-            mDiaglog.setMessage("Uploading...");
-            mDiaglog.show();
-            String imageName = UUID.randomUUID().toString();
-            StorageReference imageFolder = storageReference.child("image/" + imageName);
-            imageFolder.putFile(saveUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            mDiaglog.dismiss();
-                            Toast.makeText(AddFoodTypeActivity.this, "Uploaded !!!", Toast.LENGTH_SHORT).show();
-                            imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    //set value for newCategory if image upload and i can get dowload link
-                                    newCategory = new Category(edtName.getText().toString(), uri.toString());
-                                    Picasso.get().load(newCategory.getImage()).into(imageView);
-                                }
-                            });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            mDiaglog.dismiss();
-                            Toast.makeText(AddFoodTypeActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                            double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                            mDiaglog.setMessage("Uploaded " + progress);
-                        }
-                    });
-        }
-    }
-    private void changeImage(Category item) {
-        if (saveUri != null) {
-            ProgressDialog mDiaglog = new ProgressDialog(this);
-            mDiaglog.setMessage("Uploading...");
-            mDiaglog.show();
-            String imageName = UUID.randomUUID().toString();
-            StorageReference imageFolder = storageReference.child("image/" + imageName);
-            imageFolder.putFile(saveUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            mDiaglog.dismiss();
-                            Toast.makeText(AddFoodTypeActivity.this, "Uploaded !!!", Toast.LENGTH_SHORT).show();
-                            imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    //set value for newCategory if image upload and i can get dowload link
-                                    item.setImage(uri.toString());
-                                }
-                            });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            mDiaglog.dismiss();
-                            Toast.makeText(AddFoodTypeActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                            double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                            mDiaglog.setMessage("Uploaded " + progress);
-                        }
-                    });
-        }*/
-
 
 }
