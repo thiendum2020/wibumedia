@@ -99,7 +99,6 @@ public class ProfileFragment extends Fragment {
     private void setEvent() {
         tv_displayName.setText(Common.currentUser.getName());
         tv_birthday.setText(Common.currentUser.getBirthday());
-        Log.d("qwerty", "" + Common.currentUser.getAvatar());
         Picasso.get().load(Common.currentUser.getAvatar()).resize(500,500)
                 .into(img_profile);
 //        Picasso.get().load(Common.currentUser.get).into(img_profile);

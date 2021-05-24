@@ -65,7 +65,6 @@ public class HomeFragment extends Fragment {
 
     private void loadData() {
         if (Common.isConnectedToInternet(getActivity().getBaseContext())) {
-            ProgressDialog mDialog = new ProgressDialog(getActivity().getBaseContext().getApplicationContext());
             service.getPost(key).enqueue(new Callback<JSONResponsePost>() {
                 @Override
                 public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {

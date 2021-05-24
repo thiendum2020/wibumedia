@@ -30,7 +30,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private ArrayList<Post> list;
-    Context context;
     HomeFragment homeFragment;
     boolean clicked = false;
     int likeCount;
@@ -39,6 +38,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         this.list = list;
         this.homeFragment = homeFragment;
     }
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
 
     @NonNull
     @Override
@@ -46,7 +49,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         View view = LayoutInflater.from(homeFragment.getContext()).inflate(R.layout.post_item, parent, false);
         return new ViewHolder(view);
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -58,10 +60,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         Picasso.get().load(model.getImage())
                 .into(holder.img_post);
         holder.tv_displayName.setText(model.getUser().getUsername());
-        //holder.tv_address.setText(model.getTv_address());
         holder.tv_caption.setText(model.getContent());
         //holder.tv_like.setText(model.getTv_like());
-        //holder.tv_comment.setText(model.getTv_comment());
 
         holder.img_post.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -129,12 +129,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     }
 
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView img_profile;
         RoundedImageView img_post;
         TextView tv_displayName, tv_address, tv_caption, tv_like, tv_comment;

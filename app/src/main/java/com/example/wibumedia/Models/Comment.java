@@ -3,12 +3,12 @@ package com.example.wibumedia.Models;
 public class Comment {
     private String id;
     private String content;
-    private User user;
+    private User user_id;
 
-    public Comment(String id, String content, User user) {
+    public Comment(String id, String content, User user_id) {
         this.id = id;
         this.content = content;
-        this.user = user;
+        this.user_id = user_id;
     }
 
     public Comment() {
@@ -30,11 +30,11 @@ public class Comment {
         this.content = content;
     }
 
-    public User getUser() {
-        return user;
+    public User getUser_id() {
+        return user_id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser_id(User user_id) {
+        this.user_id = user_id;
     }
 }

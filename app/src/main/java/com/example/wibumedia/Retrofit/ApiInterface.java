@@ -51,9 +51,6 @@ public interface ApiInterface {
 
     // --------------------------------  API FOR COMMNENT   -----------------------------------------------------
 
-    @GET("comment")
-    Call<JSONResponseComment> getComment_Test(@Header("APIKEY") String key);
-
     @GET("comment/{id}")
     Call<JSONResponseComment> getComment(@Header("APIKEY") String key, @Path("id") String id);
 
