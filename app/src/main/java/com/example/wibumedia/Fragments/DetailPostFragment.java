@@ -147,11 +147,6 @@ public class DetailPostFragment extends Fragment {
                 AlertDialog alert;
                 switch (item.getItemId()) {
                     case R.id.edit:
-//                        Fragment someFragment = new EditDetailPostFragment();
-//                        FragmentTransaction transaction = detailPostFragment.getFragmentManager().beginTransaction();
-//                        transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
-//                        transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-//                        transaction.commit();
                         Fragment someFragment = new EditDetailPostFragment();
                         Bundle bundle = new Bundle();
 
@@ -183,7 +178,6 @@ public class DetailPostFragment extends Fragment {
 
                                     @Override
                                     public void onFailure(Call<JSONResponsePost> call, Throwable t) {
-
                                     }
                                 });
 
@@ -204,29 +198,6 @@ public class DetailPostFragment extends Fragment {
                         alert.show();
 
                         break;
-//                    case R.id.save:
-//
-//                        builder.setTitle("Confirm");
-//                        builder.setMessage("Are you sure?");
-//
-//                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // Do nothing but close the dialog
-//                                dialog.dismiss();
-//                                startActivity(new Intent(getContext(), MainActivity.class));
-//                            }
-//                        });
-//                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // Do nothing
-//                                dialog.dismiss();
-//                            }
-//                        });
-//                        alert = builder.create();
-//                        alert.show();
-//                        break;
                 }
                 return true;
             }
@@ -235,23 +206,4 @@ public class DetailPostFragment extends Fragment {
     }
 
 }
-//
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.menu_edit_post, menu);
-//    }
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle item selection
-//        switch (item.getItemId()) {
-//            case R.id.delete:
-//
-//                return true;
-//            case R.id.save:
-//
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+
