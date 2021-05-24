@@ -75,7 +75,6 @@ public class HomeFragment extends Fragment {
                         return;
                     }
                     postList = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
-                    Log.e("aaaa","brvdfvdv"+jsonResponsePost.getStatus());
 
                     postAdapter = new PostAdapter(postList, HomeFragment.this);
                     layout_post.setAdapter(postAdapter);

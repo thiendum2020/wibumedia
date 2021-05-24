@@ -1,6 +1,7 @@
 package com.example.wibumedia.Retrofit;
 
 
+import com.example.wibumedia.Models.JSONResponseComment;
 import com.example.wibumedia.Models.JSONResponsePost;
 import com.example.wibumedia.Models.JSONResponseUser;
 
@@ -25,6 +26,7 @@ public interface ApiInterface {
     @POST("login")
     Call<JSONResponseUser> getUserLogin(@Header("APIKEY") String key, @Query("username") String username, @Query("password") String password);
 
+    // --------------------------------  API FOR POST   -----------------------------------------------------
     @GET("post")
     Call<JSONResponsePost> getPost(@Header("APIKEY") String key);
 
@@ -46,5 +48,16 @@ public interface ApiInterface {
 
     @DELETE("post/{id}")
     Call<JSONResponsePost> deletePost(@Header("APIKEY") String key, @Path("id") String id);
+
+    // --------------------------------  API FOR COMMNENT   -----------------------------------------------------
+
+    @GET("comment")
+    Call<JSONResponseComment> getComment_Test(@Header("APIKEY") String key);
+
+    @GET("comment/{id}")
+    Call<JSONResponseComment> getComment(@Header("APIKEY") String key, @Path("id") String id);
+
+    @POST("comment/{id}")
+    Call<JSONResponseComment> addComment(@Header("APIKEY") String key, @Query("content") String content, @Query("user_id") String user_id, @Query("post_id") String post_id);
 
 }

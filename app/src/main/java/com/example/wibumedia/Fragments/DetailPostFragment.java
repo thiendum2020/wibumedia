@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,7 +21,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wibumedia.Adapters.CommentAdapter;
+import com.example.wibumedia.Adapters.PostAdapter;
 import com.example.wibumedia.MainActivity;
+import com.example.wibumedia.Models.Comment;
+import com.example.wibumedia.Models.JSONResponseComment;
 import com.example.wibumedia.Models.JSONResponsePost;
 import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
@@ -44,12 +50,17 @@ public class DetailPostFragment extends Fragment {
     TextView tvDisplayname, tvCaption;
     RoundedImageView imgPost;
     ApiInterface service;
+
+    RecyclerView layout_comment;
+
     private Toolbar toolbar;
-    DetailPostFragment detailPostFragment;
+
+    private ArrayList<Comment> comments;
     private ArrayList<Post> posts;
 
-    String postId;
+    CommentAdapter commentAdapter = null;
 
+    String postId;
 
 
     @Override
@@ -66,15 +77,36 @@ public class DetailPostFragment extends Fragment {
                 posts = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
                 tvDisplayname.setText(posts.get(0).getUser().getUsername());
                 tvCaption.setText(posts.get(0).getContent());
+
                 Picasso.get().load("" + posts.get(0).getImage()).into(imgPost);
+                Picasso.get().load("" + posts.get(0).getUser().getAvatar()).into(imgProfile);
             }
 
             @Override
             public void onFailure(Call<JSONResponsePost> call, Throwable t) {
-
             }
         });
 
+        service.getComment(key, postID).enqueue(new Callback<JSONResponseComment>() {
+            @Override
+            public void onResponse(Call<JSONResponseComment> call, Response<JSONResponseComment> response) {
+                JSONResponseComment jsonResponseComment = response.body();
+                if (jsonResponseComment.getData() == null) {
+                    Toast.makeText(getActivity(), "This Post does not has Comment", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                comments = new ArrayList<>(Arrays.asList(jsonResponseComment.getData()));
+
+                commentAdapter = new CommentAdapter(comments, DetailPostFragment.this);
+                layout_comment.setAdapter(commentAdapter);
+                commentAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponseComment> call, Throwable t) {
+
+            }
+        });
     }
 
     public DetailPostFragment() {
@@ -89,17 +121,16 @@ public class DetailPostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail_post, container, false);
         tvDisplayname = view.findViewById(R.id.tv_displayName);
         tvCaption = view.findViewById(R.id.tv_caption);
-//        imgProfile = view.findViewById(R.id.img_profile);
+        imgProfile = view.findViewById(R.id.img_profile);
         imgPost = view.findViewById(R.id.img_post);
+        layout_comment = view.findViewById(R.id.layout_comment);
 
         service = Common.getGsonService();
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
 
-             postId = bundle.getString("PostID");
-//            Picasso.get().load(""+Common.currentUser.getImage()).into(img_profile);
-
+            postId = bundle.getString("PostID");
             loadPost(postId);
         }
 
@@ -128,7 +159,7 @@ public class DetailPostFragment extends Fragment {
                         someFragment.setArguments(bundle);
 
                         FragmentTransaction transaction = DetailPostFragment.this.getFragmentManager().beginTransaction();
-                        transaction.replace(R.id.frameLayout, someFragment ); // give your fragment container id in first parameter
+                        transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
                         transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
                         transaction.commit();
                         Toast.makeText(getContext(), "EDIT DETAIL POST!", Toast.LENGTH_SHORT).show();

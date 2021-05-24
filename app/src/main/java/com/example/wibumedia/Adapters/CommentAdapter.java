@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,9 +13,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wibumedia.Fragments.DetailPostFragment;
 import com.example.wibumedia.Fragments.HomeFragment;
 import com.example.wibumedia.Fragments.OtherProfileFragment;
 import com.example.wibumedia.Fragments.ProfileFragment;
+import com.example.wibumedia.Models.Comment;
 import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
 import com.example.wibumedia.Retrofit.Common;
@@ -26,61 +28,35 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder>  {
 
-    private ArrayList<Post> list;
+    private ArrayList<Comment> list;
     Context context;
-    HomeFragment homeFragment;
-    boolean clicked = false;
-    int likeCount;
+    DetailPostFragment detailPostFragment;
 
-    public PostAdapter(ArrayList<Post> list, HomeFragment homeFragment) {
+    public CommentAdapter(ArrayList<Comment> list, DetailPostFragment detailPostFragment) {
         this.list = list;
-        this.homeFragment = homeFragment;
+        this.detailPostFragment = detailPostFragment;
     }
+
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(homeFragment.getContext()).inflate(R.layout.post_item, parent, false);
-        return new ViewHolder(view);
+    public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(detailPostFragment.getContext()).inflate(R.layout.post_item, parent, false);
+        return new CommentViewHolder(view);
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Post model = list.get(position);
+    public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
+        Comment model = list.get(position);
 
         Picasso.get().load(model.getUser().getAvatar())
                 .into(holder.img_profile);
+        holder.tv_displayName.setText(model.getUser().getName());
+        holder.tv_displayName.setText(model.getContent());
 
-        Picasso.get().load(model.getImage())
-                .into(holder.img_post);
-        holder.tv_displayName.setText(model.getUser().getUsername());
-        //holder.tv_address.setText(model.getTv_address());
-        holder.tv_caption.setText(model.getContent());
-        //holder.tv_like.setText(model.getTv_like());
-        //holder.tv_comment.setText(model.getTv_comment());
-
-        holder.img_post.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (!clicked) {
-                    holder.tv_like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like, 0, 0, 0);
-                    likeCount = Integer.parseInt(holder.tv_like.getText() + "");
-                    //holder.like.setText(likeCount++);
-                    clicked = true;
-                } else {
-                    holder.tv_like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red, 0, 0, 0);
-                    likeCount = Integer.parseInt(holder.tv_like.getText() + "");
-                    // holder.like.setText(Integer.parseInt(model.getLike())-1);
-                    clicked = false;
-                }
-                return false;
-            }
-        });
-
-        holder.img_post.setOnClickListener(new View.OnClickListener() {
+        holder.img_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (list.get(position).getUser().getId().equals(Common.currentUser.getId())) {
@@ -90,7 +66,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     bundle.putString("UserID", String.valueOf(model.getUser().getId()));
                     someFragment.setArguments(bundle);
 
-                    FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = detailPostFragment.getFragmentManager().beginTransaction();
                     transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
                     transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
                     transaction.commit();
@@ -101,7 +77,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     bundle.putString("UserID", String.valueOf(model.getUser().getId()));
                     someFragment.setArguments(bundle);
 
-                    FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = detailPostFragment.getFragmentManager().beginTransaction();
                     transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
                     transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
                     transaction.commit();
@@ -119,7 +95,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     bundle.putString("UserID", String.valueOf(model.getUser().getId()));
                     someFragment.setArguments(bundle);
 
-                    FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = detailPostFragment.getFragmentManager().beginTransaction();
                     transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
                     transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
                     transaction.commit();
@@ -130,7 +106,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     bundle.putString("UserID", String.valueOf(model.getUser().getId()));
                     someFragment.setArguments(bundle);
 
-                    FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = detailPostFragment.getFragmentManager().beginTransaction();
                     transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
                     transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
                     transaction.commit();
@@ -138,30 +114,28 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             }
         });
-
     }
+
 
     @Override
     public int getItemCount() {
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+     static class CommentViewHolder extends RecyclerView.ViewHolder {
         CircleImageView img_profile;
-        RoundedImageView img_post;
-        TextView tv_displayName, tv_address, tv_caption, tv_like, tv_comment;
+        TextView tv_displayName, tv_comment;
 
-        public ViewHolder(@NonNull View itemView) {
+        public CommentViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
             img_profile = itemView.findViewById(R.id.img_profile);
-            img_post = itemView.findViewById(R.id.img_post);
+            tv_comment = itemView.findViewById(R.id.tv_comment);
             tv_displayName = itemView.findViewById(R.id.tv_displayName);
-            tv_address = itemView.findViewById(R.id.tv_address);
-            tv_caption = itemView.findViewById(R.id.tv_caption);
-//            tv_like = itemView.findViewById(R.id.tv_like);
-//            tv_comment = itemView.findViewById(R.id.tv_comment);
+
         }
     }
 }
+
+

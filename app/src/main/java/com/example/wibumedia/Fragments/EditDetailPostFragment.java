@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class EditDetailPostFragment extends Fragment {
     final String key = "VSBG";
-    CircleImageView imgProfile;
+
     TextView tv_displayName;
     ExtractEditText tvCaption;
     RoundedImageView imgPost;
