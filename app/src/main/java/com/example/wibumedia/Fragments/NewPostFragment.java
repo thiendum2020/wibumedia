@@ -134,7 +134,6 @@ public class NewPostFragment extends Fragment {
                     File file = new File(IMAGE_PATH);
 
                     // create RequestBody instance from file
-                    Log.d("body", "" + IMAGE_PATH);
                     RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
                     // MultipartBody.Part is used to send also the actual file name
