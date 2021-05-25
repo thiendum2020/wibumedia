@@ -93,6 +93,7 @@ public class DetailPostFragment extends Fragment {
                             @Override
                             public void onResponse(Call<JSONResponseComment> call, Response<JSONResponseComment> response) {
                                 progressDialog.dismiss();
+                                edt_comment.setText("");
                                 getFragmentManager().beginTransaction().detach(DetailPostFragment.this).attach(DetailPostFragment.this).commit();
 
                             }
