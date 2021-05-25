@@ -59,10 +59,10 @@ public class EditDetailPostFragment extends Fragment {
 
         service = Common.getGsonService();
 
-        tvCaption = view.findViewById(R.id.tv_caption);
-        tv_displayName = view.findViewById(R.id.tv_displayName);
-        img_profile = view.findViewById(R.id.img_profile);
-        imgPost = view.findViewById(R.id.img_post);
+        tvCaption = view.findViewById(R.id.tv_caption_edit);
+        tv_displayName = view.findViewById(R.id.tv_displayName_edit);
+        img_profile = view.findViewById(R.id.img_profile_edit);
+        imgPost = view.findViewById(R.id.img_post_edit);
 
         btn_Sua = view.findViewById(R.id.btn_Sua);
 
@@ -114,6 +114,7 @@ public class EditDetailPostFragment extends Fragment {
                 tv_displayName.setText(posts.get(0).getUser().getUsername());
                 tvCaption.setText(posts.get(0).getContent());
                 Picasso.get().load("" + posts.get(0).getImage()).into(imgPost);
+                Picasso.get().load("" + posts.get(0).getUser().getAvatar()).into(img_profile);
             }
 
             @Override

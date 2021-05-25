@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.wibumedia.Adapters.PostAdapter;
+import com.example.wibumedia.Models.Comment;
 import com.example.wibumedia.Models.JSONResponsePost;
 import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
@@ -102,6 +103,7 @@ public class HomeFragment extends Fragment {
         layout_post = view.findViewById(R.id.layout_post);
         layout_post.setHasFixedSize(true);
         layout_post.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
     }
 
 }

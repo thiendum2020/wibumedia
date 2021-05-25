@@ -2,10 +2,13 @@ package com.example.wibumedia.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -23,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wibumedia.Adapters.CommentAdapter;
+import com.example.wibumedia.MainActivity;
 import com.example.wibumedia.Models.Comment;
 import com.example.wibumedia.Models.JSONResponseComment;
 import com.example.wibumedia.Models.JSONResponsePost;
@@ -55,6 +60,7 @@ public class DetailPostFragment extends Fragment {
     RecyclerView layout_comment;
     EditText edt_comment;
     Post post_id;
+    String temp = "";
     private Toolbar toolbar;
     private ArrayList<Comment> comments;
     private ArrayList<Post> posts;
@@ -67,7 +73,7 @@ public class DetailPostFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setControl(view);
-
+        initToolbars(view);
         service = Common.getGsonService();
 
         Bundle bundle = this.getArguments();
@@ -76,7 +82,9 @@ public class DetailPostFragment extends Fragment {
             postId = bundle.getString("PostID");
 
             loadData(postId);
-
+//            if(post_id.getUser().getId().equals(Common.currentUser.getId())){
+//                toolbar.setEnabled(false);
+//            }
             btn_send.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -118,10 +126,7 @@ public class DetailPostFragment extends Fragment {
     }
 
     private void setControl(View view) {
-        toolbar = view.findViewById(R.id.toolbar);
-        if (getActivity() != null) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        }
+
         tvDisplayname = view.findViewById(R.id.tv_displayName);
         tvCaption = view.findViewById(R.id.tv_caption);
         imgProfile = view.findViewById(R.id.img_profile);
@@ -187,6 +192,96 @@ public class DetailPostFragment extends Fragment {
         } else {
             Toast.makeText(getActivity(), "Please check your internet!!", Toast.LENGTH_SHORT).show();
         }
+    }
+    private void initToolbars(View view) {
+        toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog alert;
+                switch (item.getItemId()) {
+                    case R.id.edit:
+                        Fragment someFragment = new EditDetailPostFragment();
+                        Bundle bundle = new Bundle();
+
+                        bundle.putString("PostID", postId);
+                        someFragment.setArguments(bundle);
+
+                        FragmentTransaction transaction = DetailPostFragment.this.getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout, someFragment ); // give your fragment container id in first parameter
+                        transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                        transaction.commit();
+                        Toast.makeText(getContext(), "EDIT DETAIL POST!", Toast.LENGTH_SHORT).show();
+
+
+                        break;
+                    case R.id.delete:
+
+                        builder.setTitle("Confirm");
+                        builder.setMessage("Are you sure?");
+
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                service.deletePost(key, posts.get(0).getId()).enqueue(new Callback<JSONResponsePost>() {
+                                    @Override
+                                    public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
+                                        JSONResponsePost jsonResponsePost = response.body();
+                                        Toast.makeText(getContext(), "DELETE SUCCESSFULLY!", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<JSONResponsePost> call, Throwable t) {
+
+                                    }
+                                });
+
+
+                                dialog.dismiss();
+
+                                startActivity(new Intent(getContext(), MainActivity.class));
+                            }
+                        });
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+                            }
+                        });
+                        alert = builder.create();
+                        alert.show();
+
+                        break;
+//                    case R.id.save:
+//
+//                        builder.setTitle("Confirm");
+//                        builder.setMessage("Are you sure?");
+//
+//                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // Do nothing but close the dialog
+//                                dialog.dismiss();
+//                                startActivity(new Intent(getContext(), MainActivity.class));
+//                            }
+//                        });
+//                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // Do nothing
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                        alert = builder.create();
+//                        alert.show();
+//                        break;
+                }
+                return true;
+            }
+        });
+        toolbar.inflateMenu(R.menu.menu_edit_post);
     }
 }
 

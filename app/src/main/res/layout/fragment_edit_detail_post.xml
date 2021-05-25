@@ -8,7 +8,7 @@
     android:paddingBottom="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_profile"
+        android:id="@+id/img_profile_edit"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="12dp"
@@ -23,13 +23,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/img_circle"
-        app:layout_constraintBottom_toBottomOf="@id/img_profile"
-        app:layout_constraintEnd_toEndOf="@id/img_profile"
-        app:layout_constraintStart_toStartOf="@id/img_profile"
-        app:layout_constraintTop_toTopOf="@id/img_profile" />
+        app:layout_constraintBottom_toBottomOf="@id/img_profile_edit"
+        app:layout_constraintEnd_toEndOf="@id/img_profile_edit"
+        app:layout_constraintStart_toStartOf="@id/img_profile_edit"
+        app:layout_constraintTop_toTopOf="@id/img_profile_edit" />
 
     <TextView
-        android:id="@+id/tv_displayName"
+        android:id="@+id/tv_displayName_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -39,9 +39,9 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/img_profile"
-        app:layout_constraintStart_toEndOf="@+id/img_profile"
-        app:layout_constraintTop_toTopOf="@+id/img_profile"
+        app:layout_constraintBottom_toBottomOf="@+id/img_profile_edit"
+        app:layout_constraintStart_toEndOf="@+id/img_profile_edit"
+        app:layout_constraintTop_toTopOf="@+id/img_profile_edit"
         app:layout_constraintVertical_bias="0.1" />
 
     <TextView
@@ -51,21 +51,21 @@
         android:fontFamily="@font/montserrat_medium"
         android:text="Ho Chi Minh, Viet Nam"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_displayName"
-        app:layout_constraintTop_toBottomOf="@+id/tv_displayName" />
+        app:layout_constraintStart_toStartOf="@+id/tv_displayName_edit"
+        app:layout_constraintTop_toBottomOf="@+id/tv_displayName_edit" />
 
     <ImageView
         android:id="@+id/img_more"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_profile"
+        app:layout_constraintBottom_toBottomOf="@+id/img_profile_edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_profile"
+        app:layout_constraintTop_toTopOf="@+id/img_profile_edit"
         app:srcCompat="@drawable/ic_more" />
 
     <android.inputmethodservice.ExtractEditText
-        android:id="@+id/tv_caption"
+        android:id="@+id/tv_caption_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -76,12 +76,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/img_more"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@+id/img_profile"
-        app:layout_constraintTop_toBottomOf="@+id/img_profile"
+        app:layout_constraintStart_toStartOf="@+id/img_profile_edit"
+        app:layout_constraintTop_toBottomOf="@+id/img_profile_edit"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/img_post"
+        android:id="@+id/img_post_edit"
         android:layout_width="0dp"
         android:layout_height="280dp"
         android:layout_marginTop="8dp"
@@ -89,8 +89,8 @@
         android:scaleType="centerCrop"
 
         app:layout_constraintEnd_toEndOf="@+id/img_more"
-        app:layout_constraintStart_toStartOf="@+id/tv_caption"
-        app:layout_constraintTop_toBottomOf="@+id/tv_caption"
+        app:layout_constraintStart_toStartOf="@+id/tv_caption_edit"
+        app:layout_constraintTop_toBottomOf="@+id/tv_caption_edit"
         app:riv_corner_radius="10dip" />
 
     <TextView
@@ -104,8 +104,8 @@
         android:gravity="center"
         android:text="100"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/img_post"
-        app:layout_constraintTop_toBottomOf="@+id/img_post" />
+        app:layout_constraintStart_toStartOf="@+id/img_post_edit"
+        app:layout_constraintTop_toBottomOf="@+id/img_post_edit" />
 
     <TextView
         android:id="@+id/tv_comment"
@@ -126,7 +126,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Sửa"
-        app:layout_constraintTop_toBottomOf="@+id/img_post" />
+        app:layout_constraintTop_toBottomOf="@+id/img_post_edit" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

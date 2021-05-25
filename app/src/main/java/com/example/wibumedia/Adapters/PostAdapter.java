@@ -17,6 +17,7 @@ import com.example.wibumedia.Fragments.DetailPostFragment;
 import com.example.wibumedia.Fragments.HomeFragment;
 import com.example.wibumedia.Fragments.OtherProfileFragment;
 import com.example.wibumedia.Fragments.ProfileFragment;
+import com.example.wibumedia.Models.Comment;
 import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
 import com.example.wibumedia.Retrofit.Common;
@@ -61,25 +62,27 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 .into(holder.img_post);
         holder.tv_displayName.setText(model.getUser().getUsername());
         holder.tv_caption.setText(model.getContent());
+
+
         //holder.tv_like.setText(model.getTv_like());
 
-        holder.img_post.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (!clicked) {
-                    holder.tv_like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like, 0, 0, 0);
-                    likeCount = Integer.parseInt(holder.tv_like.getText() + "");
-                    //holder.like.setText(likeCount++);
-                    clicked = true;
-                } else {
-                    holder.tv_like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red, 0, 0, 0);
-                    likeCount = Integer.parseInt(holder.tv_like.getText() + "");
-                    // holder.like.setText(Integer.parseInt(model.getLike())-1);
-                    clicked = false;
-                }
-                return false;
-            }
-        });
+//        holder.img_post.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                if (!clicked) {
+//                    holder.tv_like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like, 0, 0, 0);
+//                    likeCount = Integer.parseInt(holder.tv_like.getText() + "");
+//                    //holder.like.setText(likeCount++);
+//                    clicked = true;
+//                } else {
+//                    holder.tv_like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red, 0, 0, 0);
+//                    likeCount = Integer.parseInt(holder.tv_like.getText() + "");
+//                    // holder.like.setText(Integer.parseInt(model.getLike())-1);
+//                    clicked = false;
+//                }
+//                return false;
+//            }
+//        });
 
         holder.img_post.setOnClickListener(new View.OnClickListener() {
             @Override
