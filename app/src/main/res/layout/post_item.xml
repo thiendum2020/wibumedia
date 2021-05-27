@@ -89,34 +89,34 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_caption"
         app:riv_corner_radius="10dip" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_like"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="4dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:drawableLeft="@drawable/ic_like"-->
-<!--        android:drawablePadding="10dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="100"-->
-<!--        android:textSize="18sp"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/img_post"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/img_post" />-->
+    <TextView
+        android:id="@+id/tv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/ic_like"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:text="100"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/img_post"
+        app:layout_constraintTop_toBottomOf="@+id/img_post" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_comment"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="16dp"-->
-<!--        android:drawableLeft="@drawable/ic_chat"-->
-<!--        android:drawablePadding="8dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="0"-->
-<!--        android:textSize="18sp"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/img_post"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/img_post"/>-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/tv_like"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/tv_like"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/tv_like" />-->
+    <TextView
+        android:id="@+id/tv_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:drawableLeft="@drawable/ic_chat"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_like"
+        app:layout_constraintStart_toEndOf="@+id/tv_like"
+        app:layout_constraintTop_toTopOf="@+id/tv_like" />
+<!--    app:layout_constraintStart_toStartOf="@+id/img_post"-->
+<!--    app:layout_constraintTop_toBottomOf="@+id/img_post"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

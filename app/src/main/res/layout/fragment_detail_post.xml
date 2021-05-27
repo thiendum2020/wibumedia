@@ -127,20 +127,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_like"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="16dp"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:drawableLeft="@drawable/ic_like"-->
-<!--                    android:drawablePadding="10dp"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="100"-->
-<!--                    android:textSize="18sp" />-->
+                <TextView
+                    android:id="@+id/tv_like_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:drawableLeft="@drawable/ic_like"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="100"
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/tv_comment_count"
+                    android:id="@+id/tv_comment_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"

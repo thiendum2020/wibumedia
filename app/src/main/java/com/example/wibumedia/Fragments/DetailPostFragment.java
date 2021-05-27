@@ -1,22 +1,9 @@
 package com.example.wibumedia.Fragments;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +12,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wibumedia.Adapters.CommentAdapter;
 import com.example.wibumedia.MainActivity;
@@ -40,7 +36,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -53,14 +48,13 @@ public class DetailPostFragment extends Fragment {
 
     CircleImageView imgProfile, img_my_profile;
     TextView tvDisplayname, tvCaption;
-    TextView tv_comment_count;
+    TextView tv_like_detail, tv_comment_detail;
     ImageButton btn_send;
     RoundedImageView imgPost;
     ApiInterface service;
     RecyclerView layout_comment;
     EditText edt_comment;
     Post post_id;
-    String temp = "";
     private Toolbar toolbar;
     private ArrayList<Comment> comments;
     private ArrayList<Post> posts;
@@ -132,7 +126,10 @@ public class DetailPostFragment extends Fragment {
         imgProfile = view.findViewById(R.id.img_profile);
         imgPost = view.findViewById(R.id.img_post);
         img_my_profile = view.findViewById(R.id.img_my_profile);
-        tv_comment_count = view.findViewById(R.id.tv_comment_count);
+
+        tv_comment_detail = view.findViewById(R.id.tv_comment_detail);
+        tv_like_detail = view.findViewById(R.id.tv_like_detail);
+
         btn_send = view.findViewById(R.id.btn_send);
         edt_comment = view.findViewById(R.id.edt_comment);
 
@@ -157,6 +154,9 @@ public class DetailPostFragment extends Fragment {
                     tvDisplayname.setText(post_id.getUser().getUsername());
                     tvCaption.setText(post_id.getContent());
 
+                    tv_like_detail.setText(post_id.getLike_count());
+                    tv_comment_detail.setText(post_id.getComment_count());
+
                     Picasso.get().load("" + post_id.getImage()).into(imgPost);
                     Picasso.get().load("" + post_id.getUser().getAvatar()).into(imgProfile);
                     Picasso.get().load("" + Common.currentUser.getAvatar()).into(img_my_profile);
@@ -171,12 +171,10 @@ public class DetailPostFragment extends Fragment {
                 @Override
                 public void onResponse(Call<JSONResponseComment> call, Response<JSONResponseComment> response) {
                     JSONResponseComment jsonResponseComment = response.body();
-                    String cmt = (jsonResponseComment.getData().length) + "";
                     if (jsonResponseComment.getData() == null) {
                         Toast.makeText(getActivity(), "This Post does not has Comment", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    tv_comment_count.setText(cmt);
 
                     comments = new ArrayList<>(Arrays.asList(jsonResponseComment.getData()));
                     commentAdapter = new CommentAdapter(comments, DetailPostFragment.this);
@@ -254,29 +252,6 @@ public class DetailPostFragment extends Fragment {
                         alert.show();
 
                         break;
-//                    case R.id.save:
-//
-//                        builder.setTitle("Confirm");
-//                        builder.setMessage("Are you sure?");
-//
-//                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // Do nothing but close the dialog
-//                                dialog.dismiss();
-//                                startActivity(new Intent(getContext(), MainActivity.class));
-//                            }
-//                        });
-//                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // Do nothing
-//                                dialog.dismiss();
-//                            }
-//                        });
-//                        alert = builder.create();
-//                        alert.show();
-//                        break;
                 }
                 return true;
             }

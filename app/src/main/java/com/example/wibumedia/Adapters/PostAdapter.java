@@ -1,11 +1,9 @@
 package com.example.wibumedia.Adapters;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +15,6 @@ import com.example.wibumedia.Fragments.DetailPostFragment;
 import com.example.wibumedia.Fragments.HomeFragment;
 import com.example.wibumedia.Fragments.OtherProfileFragment;
 import com.example.wibumedia.Fragments.ProfileFragment;
-import com.example.wibumedia.Models.Comment;
 import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
 import com.example.wibumedia.Retrofit.Common;
@@ -31,6 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private ArrayList<Post> list;
+
     HomeFragment homeFragment;
     boolean clicked = false;
     int likeCount;
@@ -62,6 +60,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 .into(holder.img_post);
         holder.tv_displayName.setText(model.getUser().getUsername());
         holder.tv_caption.setText(model.getContent());
+
+        holder.tv_comment.setText(model.getComment_count());
+        holder.tv_like.setText(model.getLike_count());
+
+
 
 
         //holder.tv_like.setText(model.getTv_like());
@@ -148,8 +151,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tv_displayName = itemView.findViewById(R.id.tv_displayName);
             tv_address = itemView.findViewById(R.id.tv_address);
             tv_caption = itemView.findViewById(R.id.tv_caption);
-//            tv_like = itemView.findViewById(R.id.tv_like);
-//            tv_comment = itemView.findViewById(R.id.tv_comment);
+            tv_like = itemView.findViewById(R.id.tv_like);
+            tv_comment = itemView.findViewById(R.id.tv_comment);
         }
     }
 }

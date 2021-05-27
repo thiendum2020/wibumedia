@@ -4,16 +4,17 @@ public class Post {
     private String id;
     private String content;
     private String image;
+    private String comment_count;
+    private String like_count;
     private User user;
 
-    public Post(String id, String content, String image, User user) {
+    public Post(String id, String content, String image, String comment_count, String like_count, User user) {
         this.id = id;
         this.content = content;
         this.image = image;
+        this.comment_count = comment_count;
+        this.like_count = like_count;
         this.user = user;
-    }
-
-    public Post() {
     }
 
     public String getId() {
@@ -38,6 +39,22 @@ public class Post {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getComment_count() {
+        return comment_count;
+    }
+
+    public void setComment_count(String comment_count) {
+        this.comment_count = comment_count;
+    }
+
+    public String getLike_count() {
+        return like_count;
+    }
+
+    public void setLike_count(String like_count) {
+        this.like_count = like_count;
     }
 
     public User getUser() {

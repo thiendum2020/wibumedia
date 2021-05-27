@@ -62,18 +62,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
-
-
-
-        Picasso.get().load(list.get(position).getUser_id().getAvatar())
+        Picasso.get().load(list.get(position).getUser().getAvatar())
                 .into(holder.img_profile);
-        holder.tv_displayName.setText(list.get(position).getUser_id().getName());
+        holder.tv_displayName.setText(list.get(position).getUser().getName());
         holder.tv_comment.setText(list.get(position).getContent());
 
         holder.img_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (list.get(position).getUser_id().getId().equals(Common.currentUser.getId())) {
+                if (list.get(position).getUser().getId().equals(Common.currentUser.getId())) {
                     Fragment someFragment = new ProfileFragment();
                     FragmentTransaction transaction = detailPostFragment.getFragmentManager().beginTransaction();
                     transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
@@ -83,7 +80,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                     Fragment someFragment = new OtherProfileFragment();
                     Bundle bundle = new Bundle();
 
-                    bundle.putString("UserID", String.valueOf(list.get(position).getUser_id().getId()));
+                    bundle.putString("UserID", String.valueOf(list.get(position).getUser().getId()));
                     someFragment.setArguments(bundle);
 
                     FragmentTransaction transaction = detailPostFragment.getFragmentManager().beginTransaction();
@@ -97,7 +94,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         holder.tv_displayName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (list.get(position).getUser_id().getId().equals(Common.currentUser.getId())) {
+                if (list.get(position).getUser().getId().equals(Common.currentUser.getId())) {
                     Fragment someFragment = new ProfileFragment();
                     FragmentTransaction transaction = detailPostFragment.getFragmentManager().beginTransaction();
                     transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
@@ -107,7 +104,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                     Fragment someFragment = new OtherProfileFragment();
                     Bundle bundle = new Bundle();
 
-                    bundle.putString("UserID", String.valueOf(list.get(position).getUser_id().getId()));
+                    bundle.putString("UserID", String.valueOf(list.get(position).getUser().getId()));
                     someFragment.setArguments(bundle);
 
                     FragmentTransaction transaction = detailPostFragment.getFragmentManager().beginTransaction();
