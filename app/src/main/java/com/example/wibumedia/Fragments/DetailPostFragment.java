@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +59,7 @@ public class DetailPostFragment extends Fragment {
     private Toolbar toolbar;
     private ArrayList<Comment> comments;
     private ArrayList<Post> posts;
+    String user_id = "";
 
     CommentAdapter commentAdapter = null;
 
@@ -67,31 +69,26 @@ public class DetailPostFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setControl(view);
-        initToolbars(view);
         service = Common.getGsonService();
-
         Bundle bundle = this.getArguments();
         if (bundle != null) {
 
             postId = bundle.getString("PostID");
 
-            loadData(postId);
-//            if(post_id.getUser().getId().equals(Common.currentUser.getId())){
-//                toolbar.setEnabled(false);
-//            }
+            loadData(view,postId);
+
             btn_send.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(edt_comment.getText().toString().trim().isEmpty()){
+                    if (edt_comment.getText().toString().trim().isEmpty()) {
                         Toast.makeText(getContext(), "Hãy nhập gì đó để comment bài viết này !", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         final ProgressDialog progressDialog;
                         progressDialog = new ProgressDialog(getContext());
                         progressDialog.setMessage("Uploading...");
                         progressDialog.show();
 
-                        service.addComment(key, "" + edt_comment.getText().toString(), ""+Common.currentUser.getId(), ""+post_id.getId()).enqueue(new Callback<JSONResponseComment>() {
+                        service.addComment(key, "" + edt_comment.getText().toString(), "" + Common.currentUser.getId(), "" + post_id.getId()).enqueue(new Callback<JSONResponseComment>() {
                             @Override
                             public void onResponse(Call<JSONResponseComment> call, Response<JSONResponseComment> response) {
                                 progressDialog.dismiss();
@@ -112,6 +109,7 @@ public class DetailPostFragment extends Fragment {
             });
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -140,10 +138,11 @@ public class DetailPostFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             postId = bundle.getString("PostID");
+
         }
     }
 
-    private void loadData(String postID) {
+    private void loadData(View view, String postID) {
         if (Common.isConnectedToInternet(getActivity().getBaseContext())) {
             service.getDetailPost(key, postID).enqueue(new Callback<JSONResponsePost>() {
                 @Override
@@ -151,6 +150,13 @@ public class DetailPostFragment extends Fragment {
                     JSONResponsePost jsonResponsePost = response.body();
                     posts = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
                     post_id = posts.get(0);
+
+                    Log.e("id1", "" + post_id.getUser().getId());
+                    Log.e("id2", "" + Common.currentUser.getId());
+                    if (Common.currentUser.getId().equals(post_id.getUser().getId())) {
+                        initToolbars(view);
+                    }
+
                     tvDisplayname.setText(post_id.getUser().getUsername());
                     tvCaption.setText(post_id.getContent());
 
@@ -191,6 +197,7 @@ public class DetailPostFragment extends Fragment {
             Toast.makeText(getActivity(), "Please check your internet!!", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void initToolbars(View view) {
         toolbar = view.findViewById(R.id.toolbar);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -207,7 +214,7 @@ public class DetailPostFragment extends Fragment {
                         someFragment.setArguments(bundle);
 
                         FragmentTransaction transaction = DetailPostFragment.this.getFragmentManager().beginTransaction();
-                        transaction.replace(R.id.frameLayout, someFragment ); // give your fragment container id in first parameter
+                        transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
                         transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
                         transaction.commit();
                         Toast.makeText(getContext(), "EDIT DETAIL POST!", Toast.LENGTH_SHORT).show();
@@ -256,6 +263,7 @@ public class DetailPostFragment extends Fragment {
                 return true;
             }
         });
+
         toolbar.inflateMenu(R.menu.menu_edit_post);
     }
 }

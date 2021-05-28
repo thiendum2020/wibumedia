@@ -49,8 +49,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.home:
                         fragment = new HomeFragment();
                         break;
+                    case R.id.chart:
+                        fragment = new ChartFragment();
+                        break;
                     case R.id.addnew:
                         fragment = new NewPostFragment();
+                        break;
+                    case R.id.notification:
+                        fragment = new NotificationFragment();
                         break;
                     case R.id.profile:
                         fragment = new ProfileFragment();

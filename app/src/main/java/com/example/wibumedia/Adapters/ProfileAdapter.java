@@ -17,6 +17,7 @@ import com.example.wibumedia.Fragments.DetailPostFragment;
 import com.example.wibumedia.Fragments.ProfileFragment;
 import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
+import com.example.wibumedia.SquareImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class ProfileAdapter extends ArrayAdapter<Post> {
     }
 
     static class ProfileHolder {
-        ImageView post_image;
+        SquareImageView post_image;
         public ProfileHolder() {
         }
     }

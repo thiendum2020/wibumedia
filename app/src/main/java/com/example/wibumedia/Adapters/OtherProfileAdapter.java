@@ -20,6 +20,7 @@ import com.example.wibumedia.Fragments.DetailPostFragment;
 import com.example.wibumedia.Fragments.OtherProfileFragment;
 import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
+import com.example.wibumedia.SquareImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class OtherProfileAdapter extends ArrayAdapter<Post> {
 
 
     static class OtherProfileHolder {
-        ImageView post_image;
+        SquareImageView post_image;
 
         public OtherProfileHolder() {
         }

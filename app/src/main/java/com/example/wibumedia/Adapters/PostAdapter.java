@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -144,7 +145,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-        holder.btnDowwn.setOnClickListener(new View.OnClickListener() {
+        holder.tv_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -174,7 +175,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         CircleImageView img_profile;
         RoundedImageView img_post;
         TextView tv_displayName, tv_address, tv_caption, tv_like, tv_comment;
-        Button btnDowwn;
+        ImageView tv_download;
 
         public ViewHolder(@NonNull View itemView) {
 
@@ -187,7 +188,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tv_caption = itemView.findViewById(R.id.tv_caption);
             tv_like = itemView.findViewById(R.id.tv_like);
             tv_comment = itemView.findViewById(R.id.tv_comment);
-            btnDowwn = itemView.findViewById(R.id.btnDowwn);
+            tv_download = itemView.findViewById(R.id.tv_download);
         }
     }
 }
