@@ -1,12 +1,18 @@
 package com.example.wibumedia.Adapters;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,12 +24,16 @@ import com.example.wibumedia.Fragments.ProfileFragment;
 import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.R;
 import com.example.wibumedia.Retrofit.Common;
+import com.example.wibumedia.SaveImageHelper;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import dmax.dialog.SpotsDialog;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
@@ -32,6 +42,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     HomeFragment homeFragment;
     boolean clicked = false;
     int likeCount;
+    private static final int PERMISSION_REQUEST_CODE = 1000;
 
     public PostAdapter(ArrayList<Post> list, HomeFragment homeFragment) {
         this.list = list;
@@ -133,6 +144,28 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
+        holder.btnDowwn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(ActivityCompat.checkSelfPermission(Objects.requireNonNull(homeFragment.getContext()), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(homeFragment.getContext(), "You should grant permission!", Toast.LENGTH_SHORT).show();
+                    ActivityCompat.requestPermissions(homeFragment.getActivity(),new String []{Manifest.permission.WRITE_EXTERNAL_STORAGE},PERMISSION_REQUEST_CODE);
+                    return;
+
+                }
+                else {
+                    AlertDialog dialog = new SpotsDialog(homeFragment.getContext());
+                    dialog.show();
+                    dialog.setMessage("Downloading....");
+
+                    String filename = UUID.randomUUID().toString()+".jpg";
+                    Picasso.get().load(list.get(position).getImage())
+                            .into(new SaveImageHelper(homeFragment.getContext(), dialog, homeFragment.getActivity().getContentResolver(), filename, "Image description"));
+                }
+            }
+        });
+
     }
 
 
@@ -141,6 +174,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         CircleImageView img_profile;
         RoundedImageView img_post;
         TextView tv_displayName, tv_address, tv_caption, tv_like, tv_comment;
+        Button btnDowwn;
 
         public ViewHolder(@NonNull View itemView) {
 
@@ -153,6 +187,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tv_caption = itemView.findViewById(R.id.tv_caption);
             tv_like = itemView.findViewById(R.id.tv_like);
             tv_comment = itemView.findViewById(R.id.tv_comment);
+            btnDowwn = itemView.findViewById(R.id.btnDowwn);
         }
     }
 }
