@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 public class ProfileAdapter extends ArrayAdapter<Post> {
     Context context;
     int resource;
-    Post post = null;
+//    Post post = null;
     ArrayList<Post> data = null;
     PostAdapter adapter;
     ProfileHolder holder = null;

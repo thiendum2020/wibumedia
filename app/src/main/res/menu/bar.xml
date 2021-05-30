@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
         android:id="@+id/actionToggleBarBorders"
-        android:title="/actionToggleBarBorders">
+        android:title="actionToggleBarBorders">
     </item>
     <item
         android:id="@+id/actionToggleValues"
@@ -38,7 +38,7 @@
     </item>
     <item
         android:id="@+id/actionSave"
-        android:title="/actionSave">
+        android:title="actionSave">
     </item>
 
 </menu>

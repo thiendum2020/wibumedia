@@ -1,12 +1,13 @@
 package com.example.wibumedia;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
-import android.os.Bundle;
-import android.util.Log;
 
 import com.example.wibumedia.Fragments.HomeFragment;
 import com.example.wibumedia.Fragments.NewPostFragment;
@@ -45,12 +46,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(int lastIndex, @Nullable AnimatedBottomBar.Tab lastTab, int newIndex, @NotNull AnimatedBottomBar.Tab newTab) {
                 Fragment fragment = null;
+                AppCompatActivity appCompatActivity = null;
                 switch (newTab.getId()) {
                     case R.id.home:
                         fragment = new HomeFragment();
                         break;
                     case R.id.chart:
-                        fragment = new ChartFragment();
+                        Intent intent = new Intent(MainActivity.this, ChartActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.addnew:
                         fragment = new NewPostFragment();
@@ -67,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
                     fragmentManager = getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment)
                             .commit();
-                } else {
+                }
+                else {
                     Log.e(TAG, "Error in creating Fragment");
                 }
 

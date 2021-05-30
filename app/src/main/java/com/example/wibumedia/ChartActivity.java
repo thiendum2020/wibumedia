@@ -1,6 +1,5 @@
 package com.example.wibumedia;
 
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
@@ -11,19 +10,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
 import com.example.mylib.charts.BarChart;
 import com.example.mylib.components.Legend;
-import com.example.mylib.components.Legend.LegendForm;
 import com.example.mylib.components.XAxis;
-import com.example.mylib.components.XAxis.XAxisPosition;
 import com.example.mylib.components.YAxis;
-import com.example.mylib.components.YAxis.AxisDependency;
-import com.example.mylib.components.YAxis.YAxisLabelPosition;
 import com.example.mylib.data.BarData;
 import com.example.mylib.data.BarDataSet;
 import com.example.mylib.data.BarEntry;
@@ -35,6 +29,10 @@ import com.example.mylib.interfaces.datasets.IDataSet;
 import com.example.mylib.listener.OnChartValueSelectedListener;
 import com.example.mylib.utils.Fill;
 import com.example.mylib.utils.MPPointF;
+import com.example.wibumedia.Models.Post;
+import com.example.wibumedia.Models.User;
+import com.example.wibumedia.Retrofit.ApiInterface;
+import com.example.wibumedia.Retrofit.Common;
 import com.example.wibumedia.custom.DayAxisValueFormatter;
 import com.example.wibumedia.custom.MyAxisValueFormatter;
 import com.example.wibumedia.custom.XYMarkerView;
@@ -43,16 +41,51 @@ import com.example.wibumedia.notimportant.DemoBase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarChartActivity extends DemoBase implements OnSeekBarChangeListener,
-        OnChartValueSelectedListener {
 
+public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeListener, OnChartValueSelectedListener {
+
+    class ChartData {
+        private User user;
+        private int countPost;
+
+        public ChartData(User user, int countPost) {
+            this.user = user;
+            this.countPost = countPost;
+        }
+
+        public ChartData() {
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+
+        public int getCountPost() {
+            return countPost;
+        }
+
+        public void setCountPost(int countPost) {
+            this.countPost = countPost;
+        }
+    }
+    private final String key = "VSBG";
     private BarChart chart;
     private SeekBar seekBarX;
     private TextView tvX;
 
+    ApiInterface service;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        service = Common.getGsonService();
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_bar_chart);
@@ -86,7 +119,7 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
         IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(chart);
 
         XAxis xAxis = chart.getXAxis();
-        xAxis.setPosition(XAxisPosition.BOTTOM);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(tfLight);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // only intervals of 1 day
@@ -99,7 +132,7 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
         leftAxis.setTypeface(tfLight);
         leftAxis.setLabelCount(8, false);
         leftAxis.setValueFormatter(custom);
-        leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART);
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(15f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
@@ -116,7 +149,7 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(false);
-        l.setForm(LegendForm.SQUARE);
+        l.setForm(Legend.LegendForm.SQUARE);
         l.setFormSize(9f);
         l.setTextSize(11f);
         l.setXEntrySpace(4f);
@@ -132,7 +165,6 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
     }
 
     private void setData(int count) {
-
         float start = 1;
 
         ArrayList<BarEntry> values = new ArrayList<>();
@@ -302,7 +334,7 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
 
         RectF bounds = onValueSelectedRectF;
         chart.getBarBounds((BarEntry) e, bounds);
-        MPPointF position = chart.getPosition(e, AxisDependency.LEFT);
+        MPPointF position = chart.getPosition(e, YAxis.AxisDependency.LEFT);
 
         Log.i("bounds", bounds.toString());
         Log.i("position", position.toString());

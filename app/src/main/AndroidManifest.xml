@@ -30,6 +30,7 @@
         </activity>
         <activity android:name=".FragmentReplaceActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".ChartActivity" />
     </application>
 
 </manifest>
