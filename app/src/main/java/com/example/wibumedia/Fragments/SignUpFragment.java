@@ -54,12 +54,7 @@ public class SignUpFragment extends Fragment {
     }
 
     private void setEvent() {
-        et_username.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         tv_backToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
