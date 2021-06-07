@@ -19,7 +19,6 @@ import com.example.wibumedia.MainActivity;
 import com.example.wibumedia.R;
 
 public class SignUpFragment extends Fragment {
-    private TextView tv_backToLogin;
     private EditText et_username,et_name, et_phone, et_email, et_password, et_confirmPass;
     private Button btn_signUp;
     private ImageButton btn_back;
@@ -44,7 +43,6 @@ public class SignUpFragment extends Fragment {
         setEvent();
     }
     private void setControl(View view) {
-        tv_backToLogin = view.findViewById(R.id.tv_backToLogin);
         et_username = view.findViewById(R.id.et_username);
         et_email = view.findViewById(R.id.et_email);
         et_name = view.findViewById(R.id.et_name);
@@ -57,12 +55,6 @@ public class SignUpFragment extends Fragment {
 
     private void setEvent() {
 
-        tv_backToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((FragmentReplaceActivity) getActivity()).setFragment(new SignInFragment());
-            }
-        });
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

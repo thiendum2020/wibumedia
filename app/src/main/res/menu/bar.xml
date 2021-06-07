@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/actionToggleBarBorders"
-        android:title="actionToggleBarBorders">
-    </item>
+        android:title="actionToggleBarBorders"
+        app:showAsAction="never" />
     <item
         android:id="@+id/actionToggleValues"
-        android:title="actionToggleValues">
-    </item>
+        android:title="actionToggleValues"
+        app:showAsAction="never" />
     <item
         android:id="@+id/actionToggleIcons"
-        android:title="actionToggleIcons">
-    </item>
+        android:title="actionToggleIcons"
+        app:showAsAction="never" />
     <item
         android:id="@+id/actionToggleHighlight"
-        android:title="actionToggleHighlight">
-    </item>
+        android:title="actionToggleHighlight"
+        app:showAsAction="never" />
     <item
         android:id="@+id/actionTogglePinch"
-        android:title="actionTogglePinch">
-    </item>
+        android:title="actionTogglePinch"
+        app:showAsAction="never" />
     <item
         android:id="@+id/actionToggleAutoScaleMinMax"
-        android:title="actionToggleAutoScale">
-    </item>
+        android:title="actionToggleAutoScale"
+        app:showAsAction="never" />
     <item
         android:id="@+id/animateX"
-        android:title="animateX">
-    </item>
+        android:title="animateX"
+        app:showAsAction="never" />
     <item
         android:id="@+id/animateY"
-        android:title="animateY">
-    </item>
+        android:title="animateY"
+        app:showAsAction="never" />
     <item
         android:id="@+id/animateXY"
-        android:title="animateXY">
-    </item>
+        android:title="animateXY"
+        app:showAsAction="never" />
     <item
         android:id="@+id/actionSave"
-        android:title="actionSave">
-    </item>
+        android:title="actionSave"
+        app:showAsAction="never" />
 
 </menu>
