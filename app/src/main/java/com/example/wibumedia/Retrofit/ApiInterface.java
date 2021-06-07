@@ -4,16 +4,10 @@ package com.example.wibumedia.Retrofit;
 import com.example.wibumedia.Models.JSONResponseComment;
 import com.example.wibumedia.Models.JSONResponsePost;
 import com.example.wibumedia.Models.JSONResponseUser;
-import com.example.wibumedia.Models.Post;
-import com.example.wibumedia.Models.User;
 
 import okhttp3.MultipartBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -24,9 +18,17 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
+    // --------------------------------  API FOR USER   -----------------------------------------------------
 
     @POST("login")
     Call<JSONResponseUser> getUserLogin(@Header("APIKEY") String key, @Query("username") String username, @Query("password") String password);
+
+    // ----- Create New USER ---------
+    @POST("user")
+    Call<JSONResponseUser> addUser(@Header("APIKEY") String key,
+                                   @Query("username") String username,  @Query("password") String password,
+                                   @Query("name") String name,          @Query("email") String email,
+                                   @Query("phone") String phone,        @Query("birthday") String birthday);
 
     // --------------------------------  API FOR POST   -----------------------------------------------------
     @GET("post")

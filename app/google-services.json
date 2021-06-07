@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "621343473867",
+    "project_id": "fcmapp-df410",
+    "storage_bucket": "fcmapp-df410.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621343473867:android:a094459dede5346572db4e",
+        "android_client_info": {
+          "package_name": "com.example.wibumedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621343473867-ttvq11s7h9kie4nkq8ji9l9pc69uq61f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wibumedia",
+            "certificate_hash": "be0d2e1b9da73564e2ce63954e82568cdf599a51"
+          }
+        },
+        {
+          "client_id": "621343473867-smvu3mu2id4lpv9vcegir388hr45thml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTeStyOFLOopRONMneLtrczH9gNjdtXqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "621343473867-smvu3mu2id4lpv9vcegir388hr45thml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

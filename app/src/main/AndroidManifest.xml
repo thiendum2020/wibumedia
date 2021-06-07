@@ -18,6 +18,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WibuMedia"
         tools:ignore="GoogleAppIndexingWarning">
+        <!-- [START fcm_disable_auto_init] -->
+<!--        <meta-data-->
+<!--            android:name="firebase_messaging_auto_init_enabled"-->
+<!--            android:value="false" />-->
+<!--        <meta-data-->
+<!--            android:name="firebase_analytics_collection_enabled"-->
+<!--            android:value="false" />-->
+<!--        &lt;!&ndash; [END fcm_disable_auto_init] &ndash;&gt;-->
+<!--        &lt;!&ndash; [START fcm_default_icon] &ndash;&gt;-->
+<!--        &lt;!&ndash; Set custom default icon. This is used when no icon is set for incoming notification messages.-->
+<!--             See README(https://goo.gl/l4GJaQ) for more. &ndash;&gt;-->
+<!--        <meta-data-->
+<!--            android:name="com.google.firebase.messaging.default_notification_icon"-->
+<!--            android:resource="@drawable/ic_stat_ic_notification" />-->
+<!--        &lt;!&ndash; Set color used with incoming notification messages. This is used when no color is set for the incoming-->
+<!--             notification message. See README(https://goo.gl/6BKBk7) for more. &ndash;&gt;-->
+<!--        <meta-data-->
+<!--            android:name="com.google.firebase.messaging.default_notification_color"-->
+<!--            android:resource="@color/colorAccent" />-->
+<!--        &lt;!&ndash; [END fcm_default_icon] &ndash;&gt;-->
+
+<!--        &lt;!&ndash; [START fcm_default_channel] &ndash;&gt;-->
+<!--        <meta-data-->
+<!--            android:name="com.google.firebase.messaging.default_notification_channel_id"-->
+<!--            android:value="@string/default_notification_channel_id" />-->
+
         <activity android:name=".BarChartActivity">
 
         </activity>
@@ -31,6 +57,22 @@
         <activity android:name=".FragmentReplaceActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ChartActivity" />
+
+<!--        <service-->
+<!--            android:name=".Service.MyFirebaseMessagingService"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+
+<!--        <service android:name=".Service.MyFirebaseIdService" android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+
+<!--        <receiver android:name=".Service.MyFirebaseIdService" />-->
     </application>
 
 </manifest>

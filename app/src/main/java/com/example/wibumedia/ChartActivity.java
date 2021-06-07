@@ -1,7 +1,6 @@
 package com.example.wibumedia;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.example.mylib.charts.BarChart;
@@ -29,7 +29,6 @@ import com.example.mylib.interfaces.datasets.IDataSet;
 import com.example.mylib.listener.OnChartValueSelectedListener;
 import com.example.mylib.utils.Fill;
 import com.example.mylib.utils.MPPointF;
-import com.example.wibumedia.Models.Post;
 import com.example.wibumedia.Models.User;
 import com.example.wibumedia.Retrofit.ApiInterface;
 import com.example.wibumedia.Retrofit.Common;
@@ -76,6 +75,7 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
     private BarChart chart;
     private SeekBar seekBarX;
     private TextView tvX;
+    Toolbar toolbar;
 
     ApiInterface service;
 
@@ -161,6 +161,10 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
         // setting data
         seekBarX.setProgress(6);
 
+
+        // toolbar
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         // chart.setDrawLegend(false);
     }
 
@@ -231,7 +235,6 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
         return true;
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

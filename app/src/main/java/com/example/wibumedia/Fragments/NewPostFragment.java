@@ -4,16 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-
-import android.os.Environment;
-import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.wibumedia.FragmentReplaceActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
 import com.example.wibumedia.MainActivity;
 import com.example.wibumedia.Models.JSONResponsePost;
-import com.example.wibumedia.Models.JSONResponseUser;
 import com.example.wibumedia.R;
 import com.example.wibumedia.ReadPathUtil;
 import com.example.wibumedia.Retrofit.ApiInterface;
@@ -36,8 +29,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
@@ -55,9 +46,7 @@ public class NewPostFragment extends Fragment {
     private CircleImageView img_profile;
     private ImageButton btn_back;
     private Button addPhoto, btnUpload;
-
     private ImageView imageViewPic;
-
     String IMAGE_PATH = "";
     private final int PICK_IMAGE_REQUEST = 77;
     Uri saveUri;
@@ -103,6 +92,7 @@ public class NewPostFragment extends Fragment {
 
     private void setEvent() {
         tv_displayName.setText(Common.currentUser.getName());
+        Picasso.get().load(Common.currentUser.getAvatar()).into(img_profile);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,10 +146,12 @@ public class NewPostFragment extends Fragment {
 
                         }
                     });
+
                 }
             }
         });
     }
+
 
 
     private void chooseIamge() {
@@ -180,7 +172,6 @@ public class NewPostFragment extends Fragment {
                 && data != null
                 && data.getData() != null) {
             saveUri = data.getData();
-            Log.d("xxx", "s6x___ " + saveUri);
             IMAGE_PATH = ReadPathUtil.getPath(getContext(), saveUri);
 
             Picasso.get().load(saveUri)
