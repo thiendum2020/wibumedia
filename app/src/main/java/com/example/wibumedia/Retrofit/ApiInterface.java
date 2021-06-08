@@ -2,8 +2,10 @@ package com.example.wibumedia.Retrofit;
 
 
 import com.example.wibumedia.Models.JSONResponseComment;
+import com.example.wibumedia.Models.JSONResponseThongKe;
 import com.example.wibumedia.Models.JSONResponsePost;
 import com.example.wibumedia.Models.JSONResponseUser;
+
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -61,4 +63,6 @@ public interface ApiInterface {
     @POST("comment")
     Call<JSONResponseComment> addComment(@Header("APIKEY") String key, @Query("content") String content, @Query("user_id") String user_id, @Query("post_id") String post_id);
 
+    @GET("user/post/count")
+    Call<JSONResponseThongKe> getThongKe(@Header("APIKEY") String key);
 }

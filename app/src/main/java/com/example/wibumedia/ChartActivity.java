@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -29,6 +30,8 @@ import com.example.mylib.interfaces.datasets.IDataSet;
 import com.example.mylib.listener.OnChartValueSelectedListener;
 import com.example.mylib.utils.Fill;
 import com.example.mylib.utils.MPPointF;
+import com.example.wibumedia.Models.JSONResponseThongKe;
+import com.example.wibumedia.Models.ThongKe;
 import com.example.wibumedia.Models.User;
 import com.example.wibumedia.Retrofit.ApiInterface;
 import com.example.wibumedia.Retrofit.Common;
@@ -38,53 +41,44 @@ import com.example.wibumedia.custom.XYMarkerView;
 import com.example.wibumedia.notimportant.DemoBase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeListener, OnChartValueSelectedListener {
-
-    class ChartData {
-        private User user;
-        private int countPost;
-
-        public ChartData(User user, int countPost) {
-            this.user = user;
-            this.countPost = countPost;
-        }
-
-        public ChartData() {
-        }
-
-        public User getUser() {
-            return user;
-        }
-
-        public void setUser(User user) {
-            this.user = user;
-        }
-
-        public int getCountPost() {
-            return countPost;
-        }
-
-        public void setCountPost(int countPost) {
-            this.countPost = countPost;
-        }
-    }
     private final String key = "VSBG";
     private BarChart chart;
     private SeekBar seekBarX;
     private TextView tvX;
     Toolbar toolbar;
-
+    ArrayList<ThongKe> list;
     ApiInterface service;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         service = Common.getGsonService();
+
+        service.getThongKe(key).enqueue(new Callback<JSONResponseThongKe>() {
+            @Override
+            public void onResponse(Call<JSONResponseThongKe> call, Response<JSONResponseThongKe> response) {
+                JSONResponseThongKe jsonResponseThongKe = response.body();
+                list = new ArrayList<>(Arrays.asList(jsonResponseThongKe.getData()));
+
+                Log.d("asd", "-------------------" + list.size());
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponseThongKe> call, Throwable t) {
+                Log.d("asd", "--- onResponse --- " + list.get(0).getPost_count());
+            }
+        });
+
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -169,19 +163,45 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
     }
 
     private void setData(int count) {
-        float start = 1;
-
         ArrayList<BarEntry> values = new ArrayList<>();
-        //================================================================================================================//
-        for (int i = (int) start; i < start + count; i++) {
-            float val = (float) (12);
+        if(list != null){
+            //================================================================================================================//
+            for (int i = 0; i < count; i++) {
+                int val = Integer.parseInt(list.get(i).getPost_count());
 
-            if (Math.random() * 100 < 25) {
-                values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
-            } else {
-                values.add(new BarEntry(i, val));
+                if (i == 0) {
+                    values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
+                } else {
+                    values.add(new BarEntry(i, val));
+                }
             }
         }
+        else {
+            service.getThongKe(key).enqueue(new Callback<JSONResponseThongKe>() {
+                @Override
+                public void onResponse(Call<JSONResponseThongKe> call, Response<JSONResponseThongKe> response) {
+                    JSONResponseThongKe jsonResponseThongKe = response.body();
+                    list = new ArrayList<>(Arrays.asList(jsonResponseThongKe.getData()));
+                    Log.d("asd", "-------------------" + list.size());
+                    //================================================================================================================//
+                    for (int i = 0; i < count; i++) {
+                        int val = Integer.parseInt(list.get(i).getPost_count());
+
+                        if (i == 0) {
+                            values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
+                        } else {
+                            values.add(new BarEntry(i, val));
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JSONResponseThongKe> call, Throwable t) {
+                    Log.d("asd", "--- onResponse --- " + list.get(0).getPost_count());
+                }
+            });
+        }
+
 
         BarDataSet set1;
 
