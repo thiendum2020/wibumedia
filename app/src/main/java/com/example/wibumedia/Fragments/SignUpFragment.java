@@ -39,7 +39,7 @@ public class SignUpFragment extends Fragment {
     private Button btn_signUp;
     private ImageButton btn_back;
     ApiInterface service;
-    boolean check =true;
+    boolean check = true;
 
 
     public static boolean isValidPhone(String phone) {
@@ -253,8 +253,8 @@ public class SignUpFragment extends Fragment {
                         public void onFailure(Call<JSONResponseUser> call, Throwable t) {
                             progressDialog.dismiss();
                             Log.d("asd" , "------------ loi iii -----"+t.getMessage().toString());
-                            Toast.makeText(getContext(), "Failed to create User !", Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
+                            ((FragmentReplaceActivity) getActivity()).setFragment(new SignInFragment());
                         }
                     });
                 }

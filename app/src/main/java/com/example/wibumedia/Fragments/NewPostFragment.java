@@ -1,6 +1,7 @@
 package com.example.wibumedia.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -51,6 +53,7 @@ public class NewPostFragment extends Fragment {
     private final int PICK_IMAGE_REQUEST = 77;
     Uri saveUri;
     ApiInterface service;
+
 
     public NewPostFragment() {
         // Required empty public constructor
@@ -91,6 +94,7 @@ public class NewPostFragment extends Fragment {
     }
 
     private void setEvent() {
+
         tv_displayName.setText(Common.currentUser.getName());
         Picasso.get().load(Common.currentUser.getAvatar()).into(img_profile);
 
@@ -115,37 +119,59 @@ public class NewPostFragment extends Fragment {
                 //uploadImage();
                 if (IMAGE_PATH.equals("")) {
                     Toast.makeText(getContext(), "Chưa chọn ảnh!", Toast.LENGTH_SHORT).show();
-                } else {
-                    final ProgressDialog progressDialog;
-                    progressDialog = new ProgressDialog(getContext());
-                    progressDialog.setMessage("Uploading...");
-                    progressDialog.show();
-
-                    File file = new File(IMAGE_PATH);
-
-                    // create RequestBody instance from file
-                    RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-                    // MultipartBody.Part is used to send also the actual file name
-                    MultipartBody.Part body =
-                            MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-
-                    service.addPost("VSBG", "" + et_caption.getText(), body, "" + Common.currentUser.getId()).enqueue(new Callback<JSONResponsePost>() {
-                        @Override
-                        public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
-                            getActivity().finish();
-                        }
-
-                        @Override
-                        public void onFailure(Call<JSONResponsePost> call, Throwable t) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getContext(), "cc!", Toast.LENGTH_SHORT).show();
-
+                    AlertDialog.Builder b = new AlertDialog.Builder(getContext());
+                    b.setTitle("Thông báo");
+                    b.setMessage("Chưa chọn ảnh!");
+                    b.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
                         }
                     });
+                    AlertDialog al = b.create();
+                    al.show();
+                } else if(et_caption.getText().toString().trim().isEmpty()){
+                    AlertDialog.Builder b = new AlertDialog.Builder(getContext());
+                    b.setTitle("Thông báo");
+                    b.setMessage("Caption không được để trống");
+                    b.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog al = b.create();
+                    al.show();
+                } else {
+                        final ProgressDialog progressDialog;
+                        progressDialog = new ProgressDialog(getContext());
+                        progressDialog.setMessage("Uploading...");
+                        progressDialog.show();
+
+                        File file = new File(IMAGE_PATH);
+
+                        // create RequestBody instance from file
+                        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+                        // MultipartBody.Part is used to send also the actual file name
+                        MultipartBody.Part body =
+                                MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+
+                        service.addPost("VSBG", "" + et_caption.getText(), body, "" + Common.currentUser.getId()).enqueue(new Callback<JSONResponsePost>() {
+                            @Override
+                            public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
+                                progressDialog.dismiss();
+                                Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+                                getActivity().finish();
+                            }
+
+                            @Override
+                            public void onFailure(Call<JSONResponsePost> call, Throwable t) {
+                                progressDialog.dismiss();
+                                Toast.makeText(getContext(), "cc!", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
 
                 }
             }
