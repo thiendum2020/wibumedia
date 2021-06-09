@@ -45,16 +45,16 @@
 <!--            android:value="@string/default_notification_channel_id" />-->
 
         <activity android:name=".WelcomeActivity">
-
-        </activity>
-        <activity android:name=".FragmentReplaceActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ChartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".FragmentReplaceActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ChartActivity">
+
         </activity>
 
 <!--        <service-->
