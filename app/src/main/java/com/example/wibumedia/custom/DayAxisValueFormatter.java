@@ -10,9 +10,7 @@ import  com.example.mylib.formatter.IAxisValueFormatter;
 public class DayAxisValueFormatter implements IAxisValueFormatter
 {
 
-    private final String[] mMonths = new String[]{
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    };
+
 
     private final BarLineChartBase<?> chart;
 
@@ -28,13 +26,6 @@ public class DayAxisValueFormatter implements IAxisValueFormatter
         int year = determineYear(days);
 
         int month = determineMonth(days);
-        String monthName = mMonths[month % mMonths.length];
-        String yearName = String.valueOf(year);
-
-        if (chart.getVisibleXRange() > 30 * 6) {
-
-            return monthName + " " + yearName;
-        } else {
 
             int dayOfMonth = determineDayOfMonth(days, month + 12 * (year - 2016));
 
@@ -64,8 +55,7 @@ public class DayAxisValueFormatter implements IAxisValueFormatter
                     break;
             }
 
-            return dayOfMonth == 0 ? "" : dayOfMonth + appendix + " " + monthName;
-        }
+            return dayOfMonth == 0 ? "" : dayOfMonth + appendix ;
     }
 
     private int getDaysForMonth(int month, int year) {

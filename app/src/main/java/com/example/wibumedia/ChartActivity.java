@@ -57,28 +57,13 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
     Toolbar toolbar;
     ArrayList<ThongKe> list;
     ApiInterface service;
+    ThongKe thongKe = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         service = Common.getGsonService();
-
-        service.getThongKe(key).enqueue(new Callback<JSONResponseThongKe>() {
-            @Override
-            public void onResponse(Call<JSONResponseThongKe> call, Response<JSONResponseThongKe> response) {
-                JSONResponseThongKe jsonResponseThongKe = response.body();
-                list = new ArrayList<>(Arrays.asList(jsonResponseThongKe.getData()));
-
-                Log.d("asd", "-------------------" + list.size());
-            }
-
-            @Override
-            public void onFailure(Call<JSONResponseThongKe> call, Throwable t) {
-                Log.d("asd", "--- onResponse --- " + list.get(0).getPost_count());
-            }
-        });
-
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -110,6 +95,7 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
         chart.setDrawGridBackground(false);
         // chart.setDrawYLabels(false);
 
+
         IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(chart);
 
         XAxis xAxis = chart.getXAxis();
@@ -129,7 +115,7 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(15f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-
+//
         YAxis rightAxis = chart.getAxisRight();
         rightAxis.setDrawGridLines(false);
         rightAxis.setTypeface(tfLight);
@@ -153,8 +139,7 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
         chart.setMarker(mv); // Set the marker to the chart
 
         // setting data
-        seekBarX.setProgress(6);
-
+        seekBarX.setProgress(5);
 
         // toolbar
         toolbar = findViewById(R.id.toolbar);
@@ -166,10 +151,9 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
         ArrayList<BarEntry> values = new ArrayList<>();
         if(list != null){
             //================================================================================================================//
-            for (int i = 0; i < count; i++) {
+            for (int i = 1; i < count +1; i++) {
                 int val = Integer.parseInt(list.get(i).getPost_count());
-
-                if (i == 0) {
+                if (i == 1) {
                     values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
                 } else {
                     values.add(new BarEntry(i, val));
@@ -182,12 +166,13 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
                 public void onResponse(Call<JSONResponseThongKe> call, Response<JSONResponseThongKe> response) {
                     JSONResponseThongKe jsonResponseThongKe = response.body();
                     list = new ArrayList<>(Arrays.asList(jsonResponseThongKe.getData()));
-                    Log.d("asd", "-------------------" + list.size());
+                    list.add(0, thongKe);
+
                     //================================================================================================================//
-                    for (int i = 0; i < count; i++) {
+                    for (int i = 1; i < count + 1 ; i++) {
                         int val = Integer.parseInt(list.get(i).getPost_count());
 
-                        if (i == 0) {
+                        if (i == 1) {
                             values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
                         } else {
                             values.add(new BarEntry(i, val));
