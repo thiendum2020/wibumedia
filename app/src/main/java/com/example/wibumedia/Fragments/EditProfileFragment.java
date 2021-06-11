@@ -187,19 +187,19 @@ public class EditProfileFragment extends Fragment {
                     AlertDialog al = b.create();
                     al.show();
                 }
-//                else if (!isValidEmail(edt_email.toString().trim())) {
-//                    check = false;
-//                    AlertDialog.Builder b = new AlertDialog.Builder(getContext());
-//                    b.setTitle("Thông báo !");
-//                    b.setMessage("Email không hợp lệ !");
-//                    b.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            dialog.cancel();
-//                        }
-//                    });
-//                    AlertDialog al = b.create();
-//                    al.show();
-//                }
+                else if (!isValidEmail(edt_email.toString().trim())) {
+                    check = false;
+                    AlertDialog.Builder b = new AlertDialog.Builder(getContext());
+                    b.setTitle("Thông báo !");
+                    b.setMessage("Email không hợp lệ !");
+                    b.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog al = b.create();
+                    al.show();
+                }
                 else if (!isValidBirthday(edt_birthday.getText().toString().trim())) {
                     check = false;
                     AlertDialog.Builder b = new AlertDialog.Builder(getContext());
@@ -280,16 +280,14 @@ public class EditProfileFragment extends Fragment {
         }
     }
     public static boolean isValidEmail(String email) {
-        String expression = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w] + [\\.])+[\\w]+[\\w]$";
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         CharSequence inputString = email;
-        Pattern pattern = Pattern.compile(expression);
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(inputString);
         if (matcher.matches())
             return true;
-
-        else {
+        else
             return false;
-        }
     }
     public static boolean isValidBirthday(String email) {
         String expression = "\\d{2}[-|/]\\d{2}[-|/]\\d{4}";
