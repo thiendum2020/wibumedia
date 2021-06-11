@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.wibumedia.MainActivity;
 import com.example.wibumedia.Models.JSONResponsePost;
@@ -101,8 +102,11 @@ public class NewPostFragment extends Fragment {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
-                getActivity().finish();
+                Fragment someFragment = new HomeFragment();
+                FragmentTransaction transaction = NewPostFragment.this.getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
             }
         });
 

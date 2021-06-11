@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:background="@drawable/bg_post_item"
     android:paddingBottom="10dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bg_new_post"
+        android:elevation="0dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/back"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:contentDescription="@null"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center"
+                android:text="Edit Detail Post"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_profile_edit"
@@ -16,7 +62,7 @@
         app:civ_border_color="@color/black"
         app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <View
         android:id="@+id/view1"
@@ -51,18 +97,10 @@
         android:fontFamily="@font/montserrat_medium"
         android:text="Ho Chi Minh, Viet Nam"
         android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tv_displayName_edit"
         app:layout_constraintTop_toBottomOf="@+id/tv_displayName_edit" />
-
-    <ImageView
-        android:id="@+id/img_more"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_profile_edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_profile_edit"
-        app:srcCompat="@drawable/ic_more" />
 
     <android.inputmethodservice.ExtractEditText
         android:id="@+id/tv_caption_edit"
@@ -84,48 +122,27 @@
         android:id="@+id/img_post_edit"
         android:layout_width="0dp"
         android:layout_height="280dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+
         android:alpha="1"
         android:scaleType="centerCrop"
 
-        app:layout_constraintEnd_toEndOf="@+id/img_more"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_caption_edit"
         app:layout_constraintTop_toBottomOf="@+id/tv_caption_edit"
         app:riv_corner_radius="10dip" />
-
-    <TextView
-        android:id="@+id/tv_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="8dp"
-        android:drawableLeft="@drawable/ic_like"
-        android:drawablePadding="10dp"
-        android:gravity="center"
-        android:text="100"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/img_post_edit"
-        app:layout_constraintTop_toBottomOf="@+id/img_post_edit" />
-
-    <TextView
-        android:id="@+id/tv_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:drawableLeft="@drawable/ic_chat"
-        android:drawablePadding="8dp"
-        android:gravity="center"
-        android:text="10"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_like"
-        app:layout_constraintStart_toEndOf="@+id/tv_like"
-        app:layout_constraintTop_toTopOf="@+id/tv_like" />
 
     <Button
         android:id="@+id/btn_Sua"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="12dp"
+        android:background="@drawable/button_edit"
         android:text="Sửa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_post_edit" />
 
 

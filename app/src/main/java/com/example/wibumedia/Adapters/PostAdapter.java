@@ -41,8 +41,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private ArrayList<Post> list;
 
     HomeFragment homeFragment;
-    boolean clicked = false;
-    int likeCount;
     private static final int PERMISSION_REQUEST_CODE = 1000;
 
     public PostAdapter(ArrayList<Post> list, HomeFragment homeFragment) {
@@ -74,30 +72,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.tv_caption.setText(model.getContent());
 
         holder.tv_comment.setText(model.getComment_count());
-        holder.tv_like.setText(model.getLike_count());
 
-
-
-
-        //holder.tv_like.setText(model.getTv_like());
-
-//        holder.img_post.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                if (!clicked) {
-//                    holder.tv_like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like, 0, 0, 0);
-//                    likeCount = Integer.parseInt(holder.tv_like.getText() + "");
-//                    //holder.like.setText(likeCount++);
-//                    clicked = true;
-//                } else {
-//                    holder.tv_like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red, 0, 0, 0);
-//                    likeCount = Integer.parseInt(holder.tv_like.getText() + "");
-//                    // holder.like.setText(Integer.parseInt(model.getLike())-1);
-//                    clicked = false;
-//                }
-//                return false;
-//            }
-//        });
 
         holder.img_post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +149,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView img_profile;
         RoundedImageView img_post;
-        TextView tv_displayName, tv_address, tv_caption, tv_like, tv_comment;
+        TextView tv_displayName, tv_address, tv_caption, tv_comment;
         ImageView tv_download;
 
         public ViewHolder(@NonNull View itemView) {
@@ -186,7 +161,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tv_displayName = itemView.findViewById(R.id.tv_displayName);
             tv_address = itemView.findViewById(R.id.tv_address);
             tv_caption = itemView.findViewById(R.id.tv_caption);
-            tv_like = itemView.findViewById(R.id.tv_like);
             tv_comment = itemView.findViewById(R.id.tv_comment);
             tv_download = itemView.findViewById(R.id.tv_download);
         }

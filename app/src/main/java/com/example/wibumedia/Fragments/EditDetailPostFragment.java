@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +33,7 @@ import retrofit2.Response;
 
 public class EditDetailPostFragment extends Fragment {
     final String key = "VSBG";
-
+    ImageButton btn_back;
     TextView tv_displayName;
     ExtractEditText tvCaption;
     RoundedImageView imgPost;
@@ -63,6 +64,7 @@ public class EditDetailPostFragment extends Fragment {
         tv_displayName = view.findViewById(R.id.tv_displayName_edit);
         img_profile = view.findViewById(R.id.img_profile_edit);
         imgPost = view.findViewById(R.id.img_post_edit);
+        btn_back = view.findViewById(R.id.btn_back);
 
         btn_Sua = view.findViewById(R.id.btn_Sua);
 
@@ -71,6 +73,17 @@ public class EditDetailPostFragment extends Fragment {
 //            Picasso.get().load(""+Common.currentUser.getImage()).into(img_profile);
 
         loadPost(postId);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment someFragment = new HomeFragment();
+                FragmentTransaction transaction = EditDetailPostFragment.this.getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
+            }
+        });
 
         btn_Sua.setOnClickListener(new View.OnClickListener() {
             @Override

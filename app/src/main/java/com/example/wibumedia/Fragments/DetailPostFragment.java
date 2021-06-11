@@ -49,8 +49,8 @@ public class DetailPostFragment extends Fragment {
 
     CircleImageView imgProfile, img_my_profile;
     TextView tvDisplayname, tvCaption;
-    TextView tv_like_detail, tv_comment_detail;
-    ImageButton btn_send;
+    TextView tv_comment_detail;
+    ImageButton btn_send, btn_back;
     RoundedImageView imgPost;
     ApiInterface service;
     RecyclerView layout_comment;
@@ -69,6 +69,7 @@ public class DetailPostFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setControl(view);
+        setEvent();
         service = Common.getGsonService();
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -120,13 +121,13 @@ public class DetailPostFragment extends Fragment {
     private void setControl(View view) {
 
         tvDisplayname = view.findViewById(R.id.tv_displayName);
+        btn_back = view.findViewById(R.id.btn_back);
         tvCaption = view.findViewById(R.id.tv_caption);
         imgProfile = view.findViewById(R.id.img_profile);
         imgPost = view.findViewById(R.id.img_post);
         img_my_profile = view.findViewById(R.id.img_my_profile);
 
         tv_comment_detail = view.findViewById(R.id.tv_comment_detail);
-        tv_like_detail = view.findViewById(R.id.tv_like_detail);
 
         btn_send = view.findViewById(R.id.btn_send);
         edt_comment = view.findViewById(R.id.edt_comment);
@@ -141,7 +142,19 @@ public class DetailPostFragment extends Fragment {
 
         }
     }
+    private void setEvent() {
 
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment someFragment = new HomeFragment();
+                FragmentTransaction transaction = DetailPostFragment.this.getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, someFragment); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
+            }
+        });
+    }
     private void loadData(View view, String postID) {
         if (Common.isConnectedToInternet(getActivity().getBaseContext())) {
             service.getDetailPost(key, postID).enqueue(new Callback<JSONResponsePost>() {
@@ -160,7 +173,6 @@ public class DetailPostFragment extends Fragment {
                     tvDisplayname.setText(post_id.getUser().getUsername());
                     tvCaption.setText(post_id.getContent());
 
-                    tv_like_detail.setText(post_id.getLike_count());
                     tv_comment_detail.setText(post_id.getComment_count());
 
                     Picasso.get().load("" + post_id.getImage()).into(imgPost);

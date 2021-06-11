@@ -1,19 +1,24 @@
 package com.example.wibumedia;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mylib.charts.BarChart;
 import com.example.mylib.components.Legend;
@@ -30,6 +35,8 @@ import com.example.mylib.interfaces.datasets.IDataSet;
 import com.example.mylib.listener.OnChartValueSelectedListener;
 import com.example.mylib.utils.Fill;
 import com.example.mylib.utils.MPPointF;
+import com.example.wibumedia.Fragments.HomeFragment;
+import com.example.wibumedia.Fragments.NewPostFragment;
 import com.example.wibumedia.Models.JSONResponseThongKe;
 import com.example.wibumedia.Models.ThongKe;
 import com.example.wibumedia.Models.User;
@@ -55,6 +62,7 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
     private SeekBar seekBarX;
     private TextView tvX;
     Toolbar toolbar;
+    ImageButton btn_back;
     ArrayList<ThongKe> list;
     ApiInterface service;
     ThongKe thongKe = null;
@@ -145,6 +153,15 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // chart.setDrawLegend(false);
+
+        btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChartActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setData(int count) {

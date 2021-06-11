@@ -47,6 +47,7 @@ public class OtherProfileFragment extends Fragment {
 
     OtherProfileAdapter viewPagerAdapter = null;
     TextView tv_username, tv_displayName, tv_birthday_other;
+    CircleImageView img_profile_other;
     private CircleImageView img_profile;
     ImageButton btn_back;
 
@@ -66,7 +67,7 @@ public class OtherProfileFragment extends Fragment {
         tv_username = view.findViewById(R.id.tv_username_other);
         tv_displayName = view.findViewById(R.id.tv_displayName_other);
         tv_birthday_other = view.findViewById(R.id.tv_birthday_other);
-        img_profile = view.findViewById(R.id.img_profile_other);
+        img_profile_other = view.findViewById(R.id.img_profile_other);
         btn_back = view.findViewById(R.id.btn_back);
 
         gridViewProfile = view.findViewById(R.id.gridView_post_other);
@@ -107,7 +108,7 @@ public class OtherProfileFragment extends Fragment {
                     tv_username.setText(posts.get(0).getUser().getUsername());
                     tv_displayName.setText(posts.get(0).getUser().getName());
                     tv_birthday_other.setText(posts.get(0).getUser().getBirthday());
-
+                    Picasso.get().load(posts.get(0).getUser().getAvatar()).into(img_profile_other);
                     //viết profile adapter để set giao diện cho 1 tấm hình hiển thị ở layout center profile...trong profile adapter thì row = inflater.inflate(R.layout.profile_item_image, parent, false);
                     viewPagerAdapter = new OtherProfileAdapter(getActivity().getBaseContext(), R.layout.fragment_other_profile, posts, OtherProfileFragment.this);
                     gridViewProfile.setAdapter(viewPagerAdapter);
