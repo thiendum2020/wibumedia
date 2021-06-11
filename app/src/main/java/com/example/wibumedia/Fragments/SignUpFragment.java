@@ -43,9 +43,9 @@ public class SignUpFragment extends Fragment {
 
 
     public static boolean isValidPhone(String phone) {
-        String expression = "^[0-9]{10}$";
+        String regex = "^[0-9]{10}$";
         CharSequence inputString = phone;
-        Pattern pattern = Pattern.compile(expression);
+        Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(inputString);
         if (matcher.matches())
             return true;
@@ -56,16 +56,15 @@ public class SignUpFragment extends Fragment {
     }
 
     public static boolean isValidEmail(String email) {
-        String expression = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w] + [\\.])+[\\w]+[\\w]$";
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         CharSequence inputString = email;
-        Pattern pattern = Pattern.compile(expression);
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(inputString);
+        Log.d("regex", "" + inputString + " - " + matcher.matches());
         if (matcher.matches())
             return true;
-
-        else {
+        else
             return false;
-        }
     }
 
     public SignUpFragment() {
@@ -157,19 +156,19 @@ public class SignUpFragment extends Fragment {
                     AlertDialog al = b.create();
                     al.show();
                 }
-//                else if (!isValidEmail(et_email.toString().trim())) {
-//                    check = false;
-//                    AlertDialog.Builder b = new AlertDialog.Builder(getContext());
-//                    b.setTitle("Thông báo !");
-//                    b.setMessage("Email không hợp lệ !");
-//                    b.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            dialog.cancel();
-//                        }
-//                    });
-//                    AlertDialog al = b.create();
-//                    al.show();
-//                }
+                else if (!isValidEmail(et_email.getText().toString().trim())) {
+                    check = false;
+                    AlertDialog.Builder b = new AlertDialog.Builder(getContext());
+                    b.setTitle("Thông báo !");
+                    b.setMessage("Email không hợp lệ !");
+                    b.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog al = b.create();
+                    al.show();
+                }
                 else if (et_phone.getText().toString().trim().isEmpty()) {
                     check = false;
                     AlertDialog.Builder b = new AlertDialog.Builder(getContext());
