@@ -95,7 +95,7 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
 
         // if more than 60 entries are displayed in the chart, no values will be
         // drawn
-        chart.setMaxVisibleValueCount(60);
+        chart.setMaxVisibleValueCount(12);
 
         // scaling can now only be done on x- and y-axis separately
         chart.setPinchZoom(false);
@@ -147,7 +147,7 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
         chart.setMarker(mv); // Set the marker to the chart
 
         // setting data
-        seekBarX.setProgress(5);
+        seekBarX.setProgress(0);
 
         // toolbar
         toolbar = findViewById(R.id.toolbar);
@@ -282,20 +282,20 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
                 }
                 break;
             }
-            case R.id.actionTogglePinch: {
-                if (chart.isPinchZoomEnabled())
-                    chart.setPinchZoom(false);
-                else
-                    chart.setPinchZoom(true);
-
-                chart.invalidate();
-                break;
-            }
-            case R.id.actionToggleAutoScaleMinMax: {
-                chart.setAutoScaleMinMaxEnabled(!chart.isAutoScaleMinMaxEnabled());
-                chart.notifyDataSetChanged();
-                break;
-            }
+//            case R.id.actionTogglePinch: {
+//                if (chart.isPinchZoomEnabled())
+//                    chart.setPinchZoom(false);
+//                else
+//                    chart.setPinchZoom(true);
+//
+//                chart.invalidate();
+//                break;
+//            }
+//            case R.id.actionToggleAutoScaleMinMax: {
+//                chart.setAutoScaleMinMaxEnabled(!chart.isAutoScaleMinMaxEnabled());
+//                chart.notifyDataSetChanged();
+//                break;
+//            }
             case R.id.actionToggleBarBorders: {
                 for (IBarDataSet set : chart.getData().getDataSets())
                     ((BarDataSet) set).setBarBorderWidth(set.getBarBorderWidth() == 1.f ? 0.f : 1.f);

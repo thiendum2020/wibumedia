@@ -17,14 +17,14 @@
         android:id="@+id/actionToggleHighlight"
         android:title="actionToggleHighlight"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/actionTogglePinch"
-        android:title="actionTogglePinch"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/actionToggleAutoScaleMinMax"
-        android:title="actionToggleAutoScale"
-        app:showAsAction="never" />
+<!--    <item-->
+<!--        android:id="@+id/actionTogglePinch"-->
+<!--        android:title="actionTogglePinch"-->
+<!--        app:showAsAction="never" />-->
+<!--    <item-->
+<!--        android:id="@+id/actionToggleAutoScaleMinMax"-->
+<!--        android:title="actionToggleAutoScale"-->
+<!--        app:showAsAction="never" />-->
     <item
         android:id="@+id/animateX"
         android:title="animateX"

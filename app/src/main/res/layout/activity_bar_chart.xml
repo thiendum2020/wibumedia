@@ -56,7 +56,7 @@
         android:layout_margin="8dp"
         android:layout_toLeftOf="@+id/tvXMax"
         android:layout_marginRight="5dp"
-        android:max="12"
+        android:max="20"
         android:paddingBottom="12dp" />
 
     <TextView

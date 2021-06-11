@@ -108,7 +108,7 @@ public class SignInFragment extends Fragment {
                     if(check == true) {
                         final ProgressDialog progressDialog;
                         progressDialog = new ProgressDialog(getContext());
-                        progressDialog.setMessage("Login...");
+                        progressDialog.setMessage("Wait a second...");
                         progressDialog.show();
 
                         service.getUserLogin(key, et_username.getText().toString(), et_password.getText().toString()).enqueue(new Callback<JSONResponseUser>() {

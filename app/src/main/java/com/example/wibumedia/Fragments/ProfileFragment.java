@@ -59,7 +59,7 @@ public class ProfileFragment extends Fragment {
 
     public ProfileFragment() {
         // Required empty public constructor
-        // này của t mới sửa.. đừng đụng
+
     }
 
     @Override
@@ -121,10 +121,10 @@ public class ProfileFragment extends Fragment {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-                builder.setTitle("Confirm");
-                builder.setMessage("Are you sure?");
+                builder.setTitle("Thông báo !");
+                builder.setMessage("Bạn có chắc muốn đăng xuất không?");
 
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing but close the dialog
@@ -134,7 +134,7 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing
