@@ -70,13 +70,10 @@ public class NotificationFragment extends Fragment {
                     ArrayList<Post> notifyList = new ArrayList<>();
                     postList = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
                     for(int i = 0; i < postList.size(); i++) {
-                        if((postList.get(i).getUser().getId().equals(Common.currentUser.getId()))){
-
-//                            postList.remove(postList.get(i));
-                        }
-                        else {
+                        if(!postList.get(i).getUser().getId().equals(Common.currentUser.getId())){
                             notifyList.add(postList.get(i));
                         }
+
                     }
                     notifyAdapter = new NotifyAdapter(notifyList, NotificationFragment.this);
                     layout_notify.setAdapter(notifyAdapter);

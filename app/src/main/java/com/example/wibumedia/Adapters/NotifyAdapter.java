@@ -70,7 +70,7 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolder
         holder.layout_notifyItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 Fragment someFragment = new DetailPostFragment();
                 Bundle bundle = new Bundle();
 
