@@ -107,21 +107,21 @@
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-<!--                <Button-->
-<!--                    android:id="@+id/btn_editProfile"-->
-<!--                    style="@style/Theme.AppCompat"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="30dp"-->
-<!--                    android:layout_below="@+id/tv_address"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_marginTop="12dp"-->
-<!--                    android:layout_marginBottom="12dp"-->
-<!--                    android:background="@drawable/button_edit"-->
-<!--                    android:fontFamily="@font/montserrat_medium"-->
-<!--                    android:text="Edit Profile"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textSize="12sp"-->
-<!--                    android:textStyle="bold" />-->
+                <Button
+                    android:id="@+id/btn_editprofile"
+                    style="@style/Theme.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/tv_address"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/button_edit"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="Edit Profile"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </LinearLayout>

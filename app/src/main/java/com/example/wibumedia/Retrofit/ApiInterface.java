@@ -32,6 +32,12 @@ public interface ApiInterface {
                                    @Query("name") String name,          @Query("email") String email,
                                    @Query("phone") String phone,        @Query("birthday") String birthday);
 
+    @PUT("user/{id}")
+    Call<JSONResponseUser> updateUser(@Header("APIKEY") String key, @Path("id") String id,
+                                      @Query("password") String password,   @Query("name") String name,
+                                      @Query("email") String email,         @Query("phone") String phone,
+                                      @Query("birthday") String birthday);
+
     // --------------------------------  API FOR POST   -----------------------------------------------------
     @GET("post")
     Call<JSONResponsePost> getPost(@Header("APIKEY") String key);

@@ -86,7 +86,7 @@ public class ProfileFragment extends Fragment {
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         }
 
-//        btn_editProfile = view.findViewById(R.id.btn_editProfile);
+        btn_editProfile = view.findViewById(R.id.btn_editprofile);
         tv_displayName = view.findViewById(R.id.tv_displayName);
         tv_birthday = view.findViewById(R.id.tv_birthday);
         img_profile = view.findViewById(R.id.img_profile);
@@ -101,19 +101,18 @@ public class ProfileFragment extends Fragment {
         tv_birthday.setText(Common.currentUser.getBirthday());
         Picasso.get().load(Common.currentUser.getAvatar()).resize(500,500)
                 .into(img_profile);
-//        Picasso.get().load(Common.currentUser.get).into(img_profile);
         loadMyProfile(Common.currentUser.getId());
 
-//        btn_editProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Fragment someFragment = new EditProfileFragment();
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                transaction.replace(R.id.profile, someFragment); // give your fragment container id in first parameter
-//                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-//                transaction.commit();
-//            }
-//        });
+        btn_editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment someFragment = new EditProfileFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.profile, someFragment); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
+            }
+        });
 
         btn_logOut.setOnClickListener(new View.OnClickListener() {
             @Override

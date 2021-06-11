@@ -34,7 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignUpFragment extends Fragment {
-    private TextView tv_backToLogin;
+//    private TextView tv_backToLogin;
     private EditText et_username, et_name, et_phone, et_email, et_password, et_birthday, et_confirmPass;
     private Button btn_signUp;
     private ImageButton btn_back;
@@ -56,7 +56,7 @@ public class SignUpFragment extends Fragment {
     }
 
     public static boolean isValidEmail(String email) {
-        String expression = "[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+";
+        String expression = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w] + [\\.])+[\\w]+[\\w]$";
         CharSequence inputString = email;
         Pattern pattern = Pattern.compile(expression);
         Matcher matcher = pattern.matcher(inputString);
