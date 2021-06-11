@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.wibumedia.Fragments.HomeFragment;
 import com.example.wibumedia.Fragments.NewPostFragment;
+import com.example.wibumedia.Fragments.NotificationFragment;
 import com.example.wibumedia.Fragments.ProfileFragment;
 
 import org.jetbrains.annotations.NotNull;
