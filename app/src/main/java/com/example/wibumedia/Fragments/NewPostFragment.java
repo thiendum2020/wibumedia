@@ -1,9 +1,14 @@
 package com.example.wibumedia.Fragments;
 
+
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +21,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -52,10 +59,10 @@ public class NewPostFragment extends Fragment {
     private ImageView imageViewPic;
     String IMAGE_PATH = "";
     private final int PICK_IMAGE_REQUEST = 77;
+    public static final  String CHANNEL_ID = "MY_CHANNEL";
     Uri saveUri;
     ApiInterface service;
-
-
+    String message = "";
     public NewPostFragment() {
         // Required empty public constructor
     }
@@ -73,6 +80,7 @@ public class NewPostFragment extends Fragment {
         setControl(view);
         setEvent();
         service = Common.getGsonService();
+
     }
 
     private void setControl(View view) {
@@ -160,9 +168,11 @@ public class NewPostFragment extends Fragment {
                                 MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
                         service.addPost("VSBG", "" + et_caption.getText(), body, "" + Common.currentUser.getId()).enqueue(new Callback<JSONResponsePost>() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
                                 progressDialog.dismiss();
+
                                 Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
                                 getActivity().finish();
@@ -181,8 +191,6 @@ public class NewPostFragment extends Fragment {
             }
         });
     }
-
-
 
     private void chooseIamge() {
         Intent intent = new Intent();

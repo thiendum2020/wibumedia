@@ -25,5 +25,8 @@
     <!-- [END fcm_default_icon_string] -->
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">FCM Message</string>
+    <string name="channel_name">Chanel name</string>
+    <string name="channel_description">Chanel description</string>
+
 
 </resources>
