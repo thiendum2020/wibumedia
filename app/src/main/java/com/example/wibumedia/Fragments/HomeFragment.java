@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
     final String key = "VSBG";
     RecyclerView layout_post;
     ArrayList<Post> postList;
-    PostAdapter postAdapter=null;
+    PostAdapter postAdapter = null;
     ApiInterface service;
 
     public HomeFragment() {
@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getActivity(), "This Home does not has Post", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    postList = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
+                    postList = jsonResponsePost.getData();
 
                     postAdapter = new PostAdapter(postList, HomeFragment.this);
                     layout_post.setAdapter(postAdapter);
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<JSONResponsePost> call, Throwable t) {
-                    Toast.makeText(getContext(), "Erro : "+ t, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Erro : " + t, Toast.LENGTH_SHORT).show();
                 }
             });
         } else {

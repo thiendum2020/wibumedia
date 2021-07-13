@@ -117,7 +117,7 @@ public class SignInFragment extends Fragment {
                                 progressDialog.dismiss();
                                 if(Integer.parseInt(response.body().getStatus())==1)
                                 {
-                                    Common.currentUser = response.body().getData();
+                                    Common.currentUser = response.body().getData().get(0);
                                     Toast.makeText(getContext(), "Sign in successfully !", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getContext(), MainActivity.class));
                                 }else{

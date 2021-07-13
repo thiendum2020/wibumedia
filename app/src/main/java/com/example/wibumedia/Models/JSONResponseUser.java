@@ -1,15 +1,19 @@
 package com.example.wibumedia.Models;
 
+import java.util.ArrayList;
+
 public class JSONResponseUser {
     private String status;
-    private User data;
+    private String message;
+    private ArrayList<User>  data;
 
-    public JSONResponseUser() {
+    public JSONResponseUser(String status, String message, ArrayList<User> data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
     }
 
-    public JSONResponseUser(String status, User data) {
-        this.status = status;
-        this.data = data;
+    public JSONResponseUser() {
     }
 
     public String getStatus() {
@@ -20,11 +24,19 @@ public class JSONResponseUser {
         this.status = status;
     }
 
-    public User getData() {
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public ArrayList<User> getData() {
         return data;
     }
 
-    public void setData(User data) {
+    public void setData(ArrayList<User> data) {
         this.data = data;
     }
 }

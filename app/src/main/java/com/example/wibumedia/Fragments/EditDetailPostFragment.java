@@ -123,7 +123,7 @@ public class EditDetailPostFragment extends Fragment {
             @Override
             public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
                 JSONResponsePost jsonResponsePost = response.body();
-                ArrayList<Post> posts = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
+                ArrayList<Post> posts = jsonResponsePost.getData();
                 tv_displayName.setText(posts.get(0).getUser().getUsername());
                 tvCaption.setText(posts.get(0).getContent());
                 Picasso.get().load("" + posts.get(0).getImage()).into(imgPost);

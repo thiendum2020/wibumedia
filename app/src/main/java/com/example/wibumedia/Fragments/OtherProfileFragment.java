@@ -63,7 +63,7 @@ public class OtherProfileFragment extends Fragment {
         service = Common.getGsonService();
 
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_other_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_other_profile, container, false);
         tv_username = view.findViewById(R.id.tv_username_other);
         tv_displayName = view.findViewById(R.id.tv_displayName_other);
         tv_birthday_other = view.findViewById(R.id.tv_birthday_other);
@@ -95,33 +95,33 @@ public class OtherProfileFragment extends Fragment {
     }
 
     private void loadProfile(String userId) {
-            service.getPostUserID(key,userId).enqueue(new Callback<JSONResponsePost>() {
-                @Override
-                public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
-                    JSONResponsePost jsonResponsePost = response.body();
-                    if (jsonResponsePost.getData() == null) {
-                        Toast.makeText(getContext(), "This Profile does not has any Post", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    posts = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
-
-                    tv_username.setText(posts.get(0).getUser().getUsername());
-                    tv_displayName.setText(posts.get(0).getUser().getName());
-                    tv_birthday_other.setText(posts.get(0).getUser().getBirthday());
-                    Picasso.get().load(posts.get(0).getUser().getAvatar()).into(img_profile_other);
-                    //viết profile adapter để set giao diện cho 1 tấm hình hiển thị ở layout center profile...trong profile adapter thì row = inflater.inflate(R.layout.profile_item_image, parent, false);
-                    viewPagerAdapter = new OtherProfileAdapter(getActivity().getBaseContext(), R.layout.fragment_other_profile, posts, OtherProfileFragment.this);
-                    gridViewProfile.setAdapter(viewPagerAdapter);
-                    viewPagerAdapter.notifyDataSetChanged();
-
-
+        service.getPostUserID(key, userId).enqueue(new Callback<JSONResponsePost>() {
+            @Override
+            public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
+                JSONResponsePost jsonResponsePost = response.body();
+                if (jsonResponsePost.getData() == null) {
+                    Toast.makeText(getContext(), "This Profile does not has any Post", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                posts = jsonResponsePost.getData();
 
-                @Override
-                public void onFailure(Call<JSONResponsePost> call, Throwable t) {
-                    Toast.makeText(getContext(), "Error : "+ t, Toast.LENGTH_SHORT).show();
-                }
-            });
+                tv_username.setText(posts.get(0).getUser().getUsername());
+                tv_displayName.setText(posts.get(0).getUser().getName());
+                tv_birthday_other.setText(posts.get(0).getUser().getBirthday());
+                Picasso.get().load(posts.get(0).getUser().getAvatar()).into(img_profile_other);
+                //viết profile adapter để set giao diện cho 1 tấm hình hiển thị ở layout center profile...trong profile adapter thì row = inflater.inflate(R.layout.profile_item_image, parent, false);
+                viewPagerAdapter = new OtherProfileAdapter(getActivity().getBaseContext(), R.layout.fragment_other_profile, posts, OtherProfileFragment.this);
+                gridViewProfile.setAdapter(viewPagerAdapter);
+                viewPagerAdapter.notifyDataSetChanged();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponsePost> call, Throwable t) {
+                Toast.makeText(getContext(), "Error : " + t, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

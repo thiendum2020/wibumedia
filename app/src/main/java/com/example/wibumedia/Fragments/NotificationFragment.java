@@ -68,7 +68,7 @@ public class NotificationFragment extends Fragment {
                 public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
                     JSONResponsePost jsonResponsePost = response.body();
                     ArrayList<Post> notifyList = new ArrayList<>();
-                    postList = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
+                    postList = jsonResponsePost.getData();
                     for(int i = 0; i < postList.size(); i++) {
                         if(!postList.get(i).getUser().getId().equals(Common.currentUser.getId())){
                             notifyList.add(postList.get(i));

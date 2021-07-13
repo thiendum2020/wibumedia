@@ -76,7 +76,7 @@ public class DetailPostFragment extends Fragment {
 
             postId = bundle.getString("PostID");
 
-            loadData(view,postId);
+            loadData(view, postId);
 
             btn_send.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -142,6 +142,7 @@ public class DetailPostFragment extends Fragment {
 
         }
     }
+
     private void setEvent() {
 
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -155,13 +156,14 @@ public class DetailPostFragment extends Fragment {
             }
         });
     }
+
     private void loadData(View view, String postID) {
         if (Common.isConnectedToInternet(getActivity().getBaseContext())) {
             service.getDetailPost(key, postID).enqueue(new Callback<JSONResponsePost>() {
                 @Override
                 public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
                     JSONResponsePost jsonResponsePost = response.body();
-                    posts = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
+                    posts = jsonResponsePost.getData();
                     post_id = posts.get(0);
 
                     Log.e("id1", "" + post_id.getUser().getId());
@@ -194,7 +196,7 @@ public class DetailPostFragment extends Fragment {
                         return;
                     }
 
-                    comments = new ArrayList<>(Arrays.asList(jsonResponseComment.getData()));
+                    comments = jsonResponseComment.getData();
                     commentAdapter = new CommentAdapter(comments, DetailPostFragment.this);
                     layout_comment.setAdapter(commentAdapter);
                     commentAdapter.notifyDataSetChanged();
@@ -244,13 +246,13 @@ public class DetailPostFragment extends Fragment {
                                 service.deletePost(key, posts.get(0).getId()).enqueue(new Callback<JSONResponsePost>() {
                                     @Override
                                     public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
-                                        JSONResponsePost jsonResponsePost = response.body();
+//                                        JSONResponsePost jsonResponsePost = response.body();
                                         Toast.makeText(getContext(), "DELETE SUCCESSFULLY!", Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
                                     public void onFailure(Call<JSONResponsePost> call, Throwable t) {
-
+                                        Toast.makeText(getContext(), "DELETE FAILED!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 

@@ -187,19 +187,19 @@ public class EditProfileFragment extends Fragment {
                     AlertDialog al = b.create();
                     al.show();
                 }
-                else if (!isValidEmail(edt_email.toString().trim())) {
-                    check = false;
-                    AlertDialog.Builder b = new AlertDialog.Builder(getContext());
-                    b.setTitle("Thông báo !");
-                    b.setMessage("Email không hợp lệ !");
-                    b.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-                    AlertDialog al = b.create();
-                    al.show();
-                }
+//                else if (!isValidEmail(edt_email.toString().trim())) {
+//                    check = false;
+//                    AlertDialog.Builder b = new AlertDialog.Builder(getContext());
+//                    b.setTitle("Thông báo !");
+//                    b.setMessage("Email không hợp lệ !");
+//                    b.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//                            dialog.cancel();
+//                        }
+//                    });
+//                    AlertDialog al = b.create();
+//                    al.show();
+//                }
                 else if (!isValidBirthday(edt_birthday.getText().toString().trim())) {
                     check = false;
                     AlertDialog.Builder b = new AlertDialog.Builder(getContext());
@@ -235,7 +235,7 @@ public class EditProfileFragment extends Fragment {
                                     progressDialog.dismiss();
                                     Toast.makeText(getContext(), "Thay đổi thành công!", Toast.LENGTH_SHORT).show();
                                     // cập nhật dữ liệu mới cho Common.CurrentUser -----------------
-                                    Common.currentUser = response.body().getData();
+                                    Common.currentUser = response.body().getData().get(0);
 
                                     Fragment someFragment = new ProfileFragment();
                                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -279,16 +279,18 @@ public class EditProfileFragment extends Fragment {
             return false;
         }
     }
-    public static boolean isValidEmail(String email) {
-        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        CharSequence inputString = email;
-        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(inputString);
-        if (matcher.matches())
-            return true;
-        else
-            return false;
-    }
+
+//    public static boolean isValidEmail(String email) {
+//        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+//        CharSequence inputString = email;
+//        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+//        Matcher matcher = pattern.matcher(inputString);
+//        if (matcher.matches())
+//            return true;
+//        else
+//            return false;
+//    }
+
     public static boolean isValidBirthday(String email) {
         String expression = "\\d{2}[-|/]\\d{2}[-|/]\\d{4}";
         CharSequence inputString = email;

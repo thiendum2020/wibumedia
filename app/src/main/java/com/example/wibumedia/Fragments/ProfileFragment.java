@@ -99,7 +99,7 @@ public class ProfileFragment extends Fragment {
     private void setEvent() {
         tv_displayName.setText(Common.currentUser.getName());
         tv_birthday.setText(Common.currentUser.getBirthday());
-        Picasso.get().load(Common.currentUser.getAvatar()).resize(500,500)
+        Picasso.get().load(Common.currentUser.getAvatar()).resize(500, 500)
                 .into(img_profile);
         loadMyProfile(Common.currentUser.getId());
 
@@ -155,7 +155,7 @@ public class ProfileFragment extends Fragment {
                     Toast.makeText(getContext(), "This Profile does not has any Post", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                ArrayList<Post> posts = new ArrayList<>(Arrays.asList(jsonResponsePost.getData()));
+                ArrayList<Post> posts = jsonResponsePost.getData();
 
                 tv_displayName.setText(Common.currentUser.getName());
                 tv_birthday.setText(Common.currentUser.getBirthday());

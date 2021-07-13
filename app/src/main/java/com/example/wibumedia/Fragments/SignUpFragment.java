@@ -251,14 +251,12 @@ public class SignUpFragment extends Fragment {
                         @Override
                         public void onFailure(Call<JSONResponseUser> call, Throwable t) {
                             progressDialog.dismiss();
-                            Log.d("asd" , "------------ loi iii -----"+t.getMessage().toString());
+                            Log.d("asd" , "------------ loi iii -----"+t.getMessage());
                             Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
                             ((FragmentReplaceActivity) getActivity()).setFragment(new SignInFragment());
                         }
                     });
                 }
-
-
             }
         });
     }

@@ -166,9 +166,9 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
 
     private void setData(int count) {
         ArrayList<BarEntry> values = new ArrayList<>();
-        if(list != null){
+        if (list != null) {
             //================================================================================================================//
-            for (int i = 1; i < count +1; i++) {
+            for (int i = 1; i < count + 1; i++) {
                 int val = Integer.parseInt(list.get(i).getPost_count());
                 if (i == 1) {
                     values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
@@ -176,17 +176,16 @@ public class ChartActivity extends DemoBase implements SeekBar.OnSeekBarChangeLi
                     values.add(new BarEntry(i, val));
                 }
             }
-        }
-        else {
+        } else {
             service.getThongKe(key).enqueue(new Callback<JSONResponseThongKe>() {
                 @Override
                 public void onResponse(Call<JSONResponseThongKe> call, Response<JSONResponseThongKe> response) {
                     JSONResponseThongKe jsonResponseThongKe = response.body();
-                    list = new ArrayList<>(Arrays.asList(jsonResponseThongKe.getData()));
+                    list = jsonResponseThongKe.getData();
                     list.add(0, thongKe);
 
                     //================================================================================================================//
-                    for (int i = 1; i < count + 1 ; i++) {
+                    for (int i = 1; i < count + 1; i++) {
                         int val = Integer.parseInt(list.get(i).getPost_count());
 
                         if (i == 1) {
