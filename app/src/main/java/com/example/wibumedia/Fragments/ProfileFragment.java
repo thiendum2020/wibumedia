@@ -101,7 +101,7 @@ public class ProfileFragment extends Fragment {
         tv_birthday.setText(Common.currentUser.getBirthday());
         Picasso.get().load(Common.currentUser.getAvatar()).resize(500, 500)
                 .into(img_profile);
-        loadMyProfile(Common.currentUser.getId());
+        loadMyProfile(Common.currentUser.getUsername());
 
         btn_editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,8 +146,8 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void loadMyProfile(String userId) {
-        service.getPostUserID(key, userId).enqueue(new Callback<JSONResponsePost>() {
+    private void loadMyProfile(String username) {
+        service.getPostUserByUsername(key, username).enqueue(new Callback<JSONResponsePost>() {
             @Override
             public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
                 JSONResponsePost jsonResponsePost = response.body();

@@ -42,8 +42,11 @@ public interface ApiInterface {
     @GET("post")
     Call<JSONResponsePost> getPost(@Header("APIKEY") String key);
 
-    @GET("post/user/{id}")
-    Call<JSONResponsePost> getPostUserID(@Header("APIKEY") String key, @Path("id") String id);
+//    @GET("post/user/{id}")
+//    Call<JSONResponsePost> getPostUserID(@Header("APIKEY") String key, @Path("id") String id);
+
+    @GET("post/profile/{username}")
+    Call<JSONResponsePost> getPostUserByUsername(@Header("APIKEY") String key, @Path("username") String username);
 
 
     @POST("post")
@@ -63,7 +66,7 @@ public interface ApiInterface {
 
     // --------------------------------  API FOR COMMNENT   -----------------------------------------------------
 
-    @GET("comment/{id}")
+    @GET("comment/post/{id}")
     Call<JSONResponseComment> getComment(@Header("APIKEY") String key, @Path("id") String id);
 
     @POST("comment")

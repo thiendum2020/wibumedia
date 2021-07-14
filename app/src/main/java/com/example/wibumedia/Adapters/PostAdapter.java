@@ -97,7 +97,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     Fragment someFragment = new ProfileFragment();
                     Bundle bundle = new Bundle();
 
-                    bundle.putString("UserID", String.valueOf(model.getUser().getId()));
+                    bundle.putString("Username", String.valueOf(model.getUser().getUsername()));
                     someFragment.setArguments(bundle);
 
                     FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
@@ -108,7 +108,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     Fragment someFragment = new OtherProfileFragment();
                     Bundle bundle = new Bundle();
 
-                    bundle.putString("UserID", String.valueOf(model.getUser().getId()));
+                    bundle.putString("Username", String.valueOf(model.getUser().getUsername()));
                     someFragment.setArguments(bundle);
 
                     FragmentTransaction transaction = homeFragment.getFragmentManager().beginTransaction();
@@ -128,7 +128,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     Toast.makeText(homeFragment.getContext(), "You should grant permission!", Toast.LENGTH_SHORT).show();
                     ActivityCompat.requestPermissions(homeFragment.getActivity(),new String []{Manifest.permission.WRITE_EXTERNAL_STORAGE},PERMISSION_REQUEST_CODE);
                     return;
-
                 }
                 else {
                     AlertDialog dialog = new SpotsDialog(homeFragment.getContext());

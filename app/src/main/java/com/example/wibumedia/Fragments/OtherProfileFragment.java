@@ -76,9 +76,9 @@ public class OtherProfileFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
 
-            String userId = bundle.getString("UserID");
+            String username = bundle.getString("Username");
 
-            loadProfile(userId);
+            loadProfile(username);
         }
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +94,8 @@ public class OtherProfileFragment extends Fragment {
         return view;
     }
 
-    private void loadProfile(String userId) {
-        service.getPostUserID(key, userId).enqueue(new Callback<JSONResponsePost>() {
+    private void loadProfile(String username) {
+        service.getPostUserByUsername(key, username).enqueue(new Callback<JSONResponsePost>() {
             @Override
             public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
                 JSONResponsePost jsonResponsePost = response.body();

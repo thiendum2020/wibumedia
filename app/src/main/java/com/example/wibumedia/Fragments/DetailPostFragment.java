@@ -204,6 +204,7 @@ public class DetailPostFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<JSONResponseComment> call, Throwable t) {
+                    Toast.makeText(getActivity(), "FAILED ! This Post can not load Comment", Toast.LENGTH_SHORT).show();
                 }
             });
 
