@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import com.example.wibumedia.Retrofit.ApiInterface;
 import com.example.wibumedia.Retrofit.Common;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Request;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -95,7 +97,6 @@ public class DetailPostFragment extends Fragment {
                                 progressDialog.dismiss();
                                 edt_comment.setText("");
                                 getFragmentManager().beginTransaction().detach(DetailPostFragment.this).attach(DetailPostFragment.this).commit();
-
                             }
 
                             @Override
@@ -238,8 +239,8 @@ public class DetailPostFragment extends Fragment {
                         break;
                     case R.id.delete:
 
-                        builder.setTitle("Confirm");
-                        builder.setMessage("Are you sure?");
+                        builder.setTitle("Thông báo !");
+                        builder.setMessage("Bạn thực sự muốn xóa bài viết này ?");
 
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
@@ -280,6 +281,61 @@ public class DetailPostFragment extends Fragment {
         });
 
         toolbar.inflateMenu(R.menu.menu_edit_post);
+    }
+
+    public void showAlertDialog(String id, String content) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle("Enter your new comment : ");
+
+        final EditText edtComment = new EditText(getContext());
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
+        edtComment.setLayoutParams(lp);
+        edtComment.setText(content);
+        alertDialog.setView(edtComment);
+
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (edtComment.getText().toString().trim().equals("")) {
+                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+
+                    builder.setTitle("Thông báo !");
+                    builder.setMessage("Bạn chưa nhập gì để sửa comment này !");
+
+                    builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    android.app.AlertDialog alert = builder.create();
+                    alert.show();
+                } else {
+                    service.updateComment(key, id, edtComment.getText().toString()).enqueue(new Callback<JSONResponsePost>() {
+                        @Override
+                        public void onResponse(Call<JSONResponsePost> call, Response<JSONResponsePost> response) {
+                            getFragmentManager().beginTransaction().detach(DetailPostFragment.this).attach(DetailPostFragment.this).commit();
+                            Toast.makeText(getContext(), "Update comment successful !", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<JSONResponsePost> call, Throwable t) {
+                            Toast.makeText(getContext(), "Update comment failed !", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
     }
 }
 

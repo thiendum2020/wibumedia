@@ -212,7 +212,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="16dp"
                     android:fontFamily="@font/montserrat_medium"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textSize="18sp" />
 
             </RelativeLayout>
@@ -273,7 +273,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="16dp"
                     android:fontFamily="@font/montserrat_medium"
-                    android:inputType="text"
+                    android:inputType="date"
                     android:textSize="18sp" />
 
             </RelativeLayout>

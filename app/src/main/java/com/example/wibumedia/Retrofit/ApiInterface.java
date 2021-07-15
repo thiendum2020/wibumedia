@@ -27,10 +27,12 @@ public interface ApiInterface {
 
     // ----- Create New USER ---------
     @POST("user")
+    @Multipart
     Call<JSONResponseUser> addUser(@Header("APIKEY") String key,
                                    @Query("username") String username,  @Query("password") String password,
                                    @Query("name") String name,          @Query("email") String email,
-                                   @Query("phone") String phone,        @Query("birthday") String birthday);
+                                   @Query("phone") String phone,        @Query("birthday") String birthday,
+                                   @Part MultipartBody.Part file);
 
     @PUT("user/{id}")
     Call<JSONResponseUser> updateUser(@Header("APIKEY") String key, @Path("id") String id,
@@ -71,6 +73,9 @@ public interface ApiInterface {
 
     @POST("comment")
     Call<JSONResponseComment> addComment(@Header("APIKEY") String key, @Query("content") String content, @Query("user_id") String user_id, @Query("post_id") String post_id);
+
+    @PUT("comment/{id}")
+    Call<JSONResponsePost> updateComment(@Header("APIKEY") String key, @Path("id") String id, @Query("content") String content);
 
     @GET("user/post/count")
     Call<JSONResponseThongKe> getThongKe(@Header("APIKEY") String key);

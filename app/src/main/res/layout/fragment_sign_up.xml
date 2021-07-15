@@ -170,6 +170,23 @@
             android:hint="Confirm Password"
             android:inputType="textPassword"
             android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btn_addImage"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/ripple_effect_raise"
+            android:drawableLeft="@drawable/ic_baseline_image_24"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="Choose a photo"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
     </LinearLayout>
 
     <Button

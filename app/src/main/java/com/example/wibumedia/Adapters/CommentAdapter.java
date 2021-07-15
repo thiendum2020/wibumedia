@@ -1,12 +1,17 @@
 package com.example.wibumedia.Adapters;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +23,7 @@ import com.example.wibumedia.Models.Comment;
 import com.example.wibumedia.R;
 import com.example.wibumedia.Retrofit.Common;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Request;
 
 import java.util.ArrayList;
 
@@ -66,6 +72,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                 .into(holder.img_profile);
         holder.tv_displayName.setText(list.get(position).getUser().getName());
         holder.tv_comment.setText(list.get(position).getContent());
+
+        holder.tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (list.get(position).getUser().getId().equals(Common.currentUser.getId())) {
+                    detailPostFragment.showAlertDialog(list.get(position).getId(), list.get(position).getContent());
+                }
+            }
+        });
 
         holder.img_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +131,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             }
         });
     }
+
+
 }
 
 
