@@ -23,6 +23,7 @@ import com.example.wibumedia.Models.JSONResponseUser;
 import com.example.wibumedia.R;
 import com.example.wibumedia.Retrofit.ApiInterface;
 import com.example.wibumedia.Retrofit.Common;
+import com.example.wibumedia.WelcomeActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -76,7 +77,7 @@ public class SignInFragment extends Fragment {
         btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Common.isConnectedToInternet(getActivity().getBaseContext())){
+                if (Common.isConnectedToInternet(getActivity().getBaseContext())) {
 
                     check = true;
                     if (et_username.getText().toString().trim().isEmpty()) {
@@ -91,8 +92,7 @@ public class SignInFragment extends Fragment {
                         });
                         AlertDialog al = b.create();
                         al.show();
-                    }
-                    else if (et_password.getText().toString().trim().isEmpty()) {
+                    } else if (et_password.getText().toString().trim().isEmpty()) {
                         check = false;
                         AlertDialog.Builder b = new AlertDialog.Builder(getContext());
                         b.setTitle("Thông báo !");
@@ -105,7 +105,7 @@ public class SignInFragment extends Fragment {
                         AlertDialog al = b.create();
                         al.show();
                     }
-                    if(check == true) {
+                    if (check == true) {
                         final ProgressDialog progressDialog;
                         progressDialog = new ProgressDialog(getContext());
                         progressDialog.setMessage("Wait a second...");
@@ -115,26 +115,40 @@ public class SignInFragment extends Fragment {
                             @Override
                             public void onResponse(Call<JSONResponseUser> call, Response<JSONResponseUser> response) {
                                 progressDialog.dismiss();
-                                if(Integer.parseInt(response.body().getStatus())==1)
-                                {
+                                if (Integer.parseInt(response.body().getStatus()) == 1) {
                                     Common.currentUser = response.body().getData().get(0);
                                     Toast.makeText(getContext(), "Sign in successfully !", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getContext(), MainActivity.class));
-                                }else{
-                                    Toast.makeText(getContext(), "Sign in failed !", Toast.LENGTH_SHORT).show();
+                                }
+//                                (Integer.parseInt(response.body().getStatus()) == -1)
+                                else {
+                                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+
+                                    builder.setTitle("Thông báo !");
+                                    builder.setMessage(response.body().getMessage());
+
+                                    builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Do nothing but close the dialog
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    android.app.AlertDialog alert = builder.create();
+                                    alert.show();
                                 }
                             }
+
                             @Override
                             public void onFailure(Call<JSONResponseUser> call, Throwable t) {
                                 progressDialog.dismiss();
-                                Toast.makeText(getActivity().getBaseContext().getApplicationContext(), ""+t.getMessage() , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity().getBaseContext().getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
 
 
-
-                }else{
+                } else {
                     Toast.makeText(getActivity().getBaseContext(), "Please check your connection !!", Toast.LENGTH_SHORT).show();
                 }
 
